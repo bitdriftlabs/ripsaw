@@ -80,12 +80,12 @@ impl OwnedValuePath {
     ///
     /// eg, .tags.nork.noog will never be an accepted path so we don't need to spend the time
     /// collecting it.
-    pub fn to_alternative_components(&self, limit: usize) -> Option<Vec<&str>> {
+    pub fn to_alternative_components(&self, limit: usize) -> Option<Vec<KeyString>> {
         let mut components = vec![];
         for segment in self.segments.iter().take(limit) {
             match segment {
                 OwnedSegment::Field(field) => {
-                    components.push(field.as_str());
+                    components.push(field.clone());
                 }
 
                 OwnedSegment::Index(_) => {
@@ -456,7 +456,7 @@ mod test {
 
         let path = parse_value_path(".first.second")?;
         assert_eq!(
-            Some(vec!["first", "second"]),
+            Some(vec!["first".into(), "second".into()]),
             path.to_alternative_components(limit)
         );
 
@@ -465,13 +465,13 @@ mod test {
 
         let path = parse_value_path("a.b.c[1].d")?; // Has index after 3rd
         assert_eq!(
-            Some(vec!["a", "b", "c"]),
+            Some(vec!["a".into(), "b".into(), "c".into()]),
             path.to_alternative_components(limit)
         );
 
         let path = parse_value_path("a.b.c.d.e.f.g.h")?;
         assert_eq!(
-            Some(vec!["a", "b", "c"]),
+            Some(vec!["a".into(), "b".into(), "c".into()]),
             path.to_alternative_components(limit)
         );
 

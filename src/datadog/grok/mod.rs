@@ -4,6 +4,7 @@
 #![deny(unused_extern_crates)]
 #![deny(unused_assignments)]
 #![deny(unused_comparisons)]
+#![allow(clippy::mutable_key_type)]
 
 mod ast;
 #[doc(hidden)]

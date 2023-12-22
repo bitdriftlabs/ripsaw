@@ -7,11 +7,11 @@ fn unnest(path: &expression::Query, ctx: &mut Context) -> Resolved {
     match path.target() {
         expression::Target::External(prefix) => {
             let root = ctx
-                .target()
+                .target_mut()
                 .target_get(&OwnedTargetPath::root(*prefix))
                 .expect("must never fail")
                 .expect("always a value");
-            unnest_root(root, lookup_buf)
+            unnest_root(&root, lookup_buf)
         }
         expression::Target::Internal(v) => {
             let value = ctx.state().variable(v.ident()).unwrap_or(&Value::Null);

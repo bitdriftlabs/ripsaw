@@ -1,9 +1,35 @@
 #![allow(clippy::module_name_repetitions)]
 use std::convert::AsRef;
+use std::ops::Deref;
 
 use crate::path::OwnedTargetPath;
 use crate::path::PathPrefix;
 use crate::value::{Secrets, Value};
+
+pub enum OwnedValueOrRef<'a> {
+    Owned(Value),
+    Ref(&'a Value),
+}
+
+impl OwnedValueOrRef<'_> {
+    pub fn into_owned_value(self) -> Value {
+        match self {
+            Self::Owned(v) => v,
+            Self::Ref(v) => v.clone(),
+        }
+    }
+}
+
+impl Deref for OwnedValueOrRef<'_> {
+    type Target = Value;
+
+    fn deref(&self) -> &Self::Target {
+        match self {
+            Self::Owned(v) => v,
+            Self::Ref(v) => v,
+        }
+    }
+}
 
 /// Any target object you want to remap using VRL has to implement this trait.
 pub trait Target: std::fmt::Debug + SecretTarget {
@@ -43,17 +69,8 @@ pub trait Target: std::fmt::Debug + SecretTarget {
     ///
     /// # Errors
     /// Error indicating retrieval failure.
-    fn target_get(&self, path: &OwnedTargetPath) -> Result<Option<&Value>, String>;
-
-    /// Get a mutable reference to the value for a given path, or `None` if no
-    /// value is found.
-    ///
-    /// See [`Target::target_insert`] for more details.
-    ///
-    /// # Errors
-    ///
-    /// Error indicating retrieval failure.
-    fn target_get_mut(&mut self, path: &OwnedTargetPath) -> Result<Option<&mut Value>, String>;
+    fn target_get(&mut self, path: &OwnedTargetPath)
+    -> Result<Option<OwnedValueOrRef<'_>>, String>;
 
     /// Remove the given path from the object.
     ///
@@ -113,23 +130,15 @@ impl Target for TargetValueRef<'_> {
         Ok(())
     }
 
-    fn target_get(&self, target_path: &OwnedTargetPath) -> Result<Option<&Value>, String> {
+    fn target_get(
+        &mut self,
+        target_path: &OwnedTargetPath,
+    ) -> Result<Option<OwnedValueOrRef<'_>>, String> {
         let value = match target_path.prefix {
             PathPrefix::Event => self.value.get(&target_path.path),
             PathPrefix::Metadata => self.metadata.get(&target_path.path),
         };
-        Ok(value)
-    }
-
-    fn target_get_mut(
-        &mut self,
-        target_path: &OwnedTargetPath,
-    ) -> Result<Option<&mut Value>, String> {
-        let value = match target_path.prefix {
-            PathPrefix::Event => self.value.get_mut(&target_path.path),
-            PathPrefix::Metadata => self.metadata.get_mut(&target_path.path),
-        };
-        Ok(value)
+        Ok(value.map(OwnedValueOrRef::Ref))
     }
 
     fn target_remove(
@@ -175,23 +184,15 @@ impl Target for TargetValue {
         Ok(())
     }
 
-    fn target_get(&self, target_path: &OwnedTargetPath) -> Result<Option<&Value>, String> {
+    fn target_get(
+        &mut self,
+        target_path: &OwnedTargetPath,
+    ) -> Result<Option<OwnedValueOrRef<'_>>, String> {
         let value = match target_path.prefix {
             PathPrefix::Event => self.value.get(&target_path.path),
             PathPrefix::Metadata => self.metadata.get(&target_path.path),
         };
-        Ok(value)
-    }
-
-    fn target_get_mut(
-        &mut self,
-        target_path: &OwnedTargetPath,
-    ) -> Result<Option<&mut Value>, String> {
-        let value = match target_path.prefix {
-            PathPrefix::Event => self.value.get_mut(&target_path.path),
-            PathPrefix::Metadata => self.metadata.get_mut(&target_path.path),
-        };
-        Ok(value)
+        Ok(value.map(OwnedValueOrRef::Ref))
     }
 
     fn target_remove(
@@ -237,7 +238,7 @@ impl SecretTarget for Secrets {
 
 #[cfg(any(test, feature = "test"))]
 mod value_target_impl {
-    use super::{SecretTarget, Target, Value};
+    use super::{OwnedValueOrRef, SecretTarget, Target, Value};
     use crate::path::{OwnedTargetPath, PathPrefix};
 
     impl Target for Value {
@@ -253,19 +254,12 @@ mod value_target_impl {
             Ok(())
         }
 
-        fn target_get(&self, target_path: &OwnedTargetPath) -> Result<Option<&Value>, String> {
-            match target_path.prefix {
-                PathPrefix::Event => Ok(self.get(&target_path.path)),
-                PathPrefix::Metadata => panic!("Value has no metadata. Use `TargetValue` instead."),
-            }
-        }
-
-        fn target_get_mut(
+        fn target_get(
             &mut self,
             target_path: &OwnedTargetPath,
-        ) -> Result<Option<&mut Value>, String> {
+        ) -> Result<Option<OwnedValueOrRef<'_>>, String> {
             match target_path.prefix {
-                PathPrefix::Event => Ok(self.get_mut(&target_path.path)),
+                PathPrefix::Event => Ok(self.get(&target_path.path).map(OwnedValueOrRef::Ref)),
                 PathPrefix::Metadata => panic!("Value has no metadata. Use `TargetValue` instead."),
             }
         }
@@ -340,7 +334,7 @@ mod tests {
 
         for (value, path, expect) in cases {
             let value: Value = value;
-            let target = TargetValue {
+            let mut target = TargetValue {
                 value,
                 metadata: value!({}),
                 secrets: Secrets::new(),
@@ -348,7 +342,9 @@ mod tests {
             let path = OwnedTargetPath::event(path);
 
             assert_eq!(
-                target.target_get(&path).map(Option::<&Value>::cloned),
+                target
+                    .target_get(&path)
+                    .map(|v| v.map(|v| v.deref().clone())),
                 expect
             );
         }
@@ -458,7 +454,7 @@ mod tests {
             );
             assert_eq!(target.value, expect);
             assert_eq!(
-                Target::target_get(&target, &path).map(Option::<&Value>::cloned),
+                Target::target_get(&mut target, &path).map(|v| v.map(|v| v.deref().clone())),
                 Ok(Some(value))
             );
         }
@@ -538,8 +534,8 @@ mod tests {
                 Ok(value)
             );
             assert_eq!(
-                Target::target_get(&target, &OwnedTargetPath::event_root())
-                    .map(Option::<&Value>::cloned),
+                Target::target_get(&mut target, &OwnedTargetPath::event_root())
+                    .map(|v| v.map(|v| v.deref().clone())),
                 Ok(expect)
             );
         }

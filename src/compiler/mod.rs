@@ -18,7 +18,7 @@ pub use expression_error::{ExpressionError, Resolved};
 pub use function::{Function, Parameter};
 pub use program::{Program, ProgramInfo};
 pub use state::{TypeInfo, TypeState};
-pub use target::{SecretTarget, Target, TargetValue, TargetValueRef};
+pub use target::{OwnedValueOrRef, SecretTarget, Target, TargetValue, TargetValueRef};
 pub use type_def::TypeDef;
 
 pub(crate) use crate::diagnostic::Span;

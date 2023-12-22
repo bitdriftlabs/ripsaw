@@ -1,3 +1,4 @@
+use crate::compiler::target::OwnedValueOrRef;
 use crate::compiler::{
     Context, Expression,
     expression::{Container, Resolved, Variable},
@@ -110,12 +111,11 @@ impl Expression for Query {
                     path: self.path.clone(),
                 };
                 return Ok(ctx
-                    .target()
+                    .target_mut()
                     .target_get(&path)
                     .ok()
                     .flatten()
-                    .cloned()
-                    .unwrap_or(Value::Null));
+                    .map_or(Value::Null, OwnedValueOrRef::into_owned_value));
             }
             Internal(variable) => variable.resolve(ctx)?,
             FunctionCall(call) => call.resolve(ctx)?,
