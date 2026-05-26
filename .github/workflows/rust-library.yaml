@@ -1,0 +1,60 @@
+# Managed by infra via Terraform, edits will be lost
+name: rust-library
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+env:
+  CARGO_NET_GIT_FETCH_WITH_CLI: true
+  CARGO_TERM_COLOR: always
+jobs:
+  test:
+    name: rust
+    runs-on: ubuntu-latest-arm-16-cores
+    if: github.actor != 'bitdriftlabs-terraform[bot]'
+    strategy:
+      matrix:
+        rust: ['stable']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      
+
+      - name: Rust Toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: ${{ matrix.rust }}
+          override: true
+          profile: minimal
+
+      - name: Cache
+        uses: Swatinem/rust-cache@v2.7.8
+
+      - name: nextest cache
+        uses: taiki-e/install-action@v2
+        with:
+          tool: nextest
+
+      - name: CI Setup
+        run: if [[ -f ci/setup.sh ]]; then ci/setup.sh; fi
+
+      - name: Build Workspace
+        run: |
+          if test -f "Makefile"; then
+            make build
+          else
+            cargo build --workspace
+          fi
+
+      - name: Test Workspace
+        run: |
+          if test -f "Makefile"; then
+            make test
+          else
+            cargo test --workspace
+          fi
