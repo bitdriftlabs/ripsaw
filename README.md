@@ -1,0 +1,2 @@
+# bdrl
+bitdrift scripting language
