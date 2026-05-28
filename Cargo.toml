@@ -60,44 +60,17 @@ stdlib-base = [
   "compiler",
   "core",
   "parsing",
-  "dep:charset",
   "dep:convert_case",
-  "dep:ciborium",
-  "dep:cidr",
-  "dep:community-id",
-  "dep:crc",
-  "dep:crypto_secretbox",
-  "dep:csv",
-  "dep:ctr",
-  "dep:digest",
   "dep:hex",
   "dep:indexmap",
-  "dep:nom",
-  "dep:ofb",
-  "dep:parse-size",
-  "dep:percent-encoding",
   "dep:prost",
   "dep:prost-reflect",
-  "dep:psl",
-  "dep:psl-types",
   "dep:publicsuffix",
   "dep:quoted_printable",
-  "dep:rand",
-  "dep:roxmltree",
   "dep:rust_decimal",
-  "dep:snap",
   "dep:strum",
   "dep:strum_macros",
-  "dep:syslog_loose",
-  "dep:tokio",
-  "dep:ua-parser",
-  "dep:url",
   "dep:utf8-width",
-  "dep:uuid",
-  "dep:woothee",
-  "dep:xxhash-rust",
-  "dep:zstd",
-  "dep:encoding_rs"
 ]
 
 [dependencies]
@@ -124,9 +97,7 @@ crc = { version = "3.3.0", optional = true }
 digest = { version = "0.10", optional = true }
 dyn-clone = { version = "1", default-features = false, optional = true }
 exitcode = { version = "1", optional = true }
-flate2 = { version = "1.1.2", default-features = false, features = ["zlib-rs"], optional = true }
 hex = { version = "0.4", optional = true }
-hmac = { version = "0.12", optional = true }
 iana-time-zone = { version = "0.1", optional = true }
 idna = { version = "1.0", optional = true }
 indexmap = { version = "2", default-features = false, features = ["std"], optional = true }
@@ -158,16 +129,11 @@ relative-path = { version = "2.0.1", optional = true }
 roxmltree = { version = "0.21", optional = true }
 rustyline = { version = "17", default-features = false, optional = true }
 rust_decimal = { version = "1", optional = true, default-features = false }
-seahash = { version = "4", optional = true }
 serde = { version = "1", features = ["derive"], optional = true }
 serde_json = { version = "1", default-features = false, optional = true, features = ["std", "raw_value"] }
 serde_yaml_ng = { version = "0.10.0" }
 simdutf8 = { version = "0.1.5", optional = true }
 fancy-regex = { version = "0.17", default-features = false, optional = true }
-sha-1 = { version = "0.10", optional = true }
-sha-2 = { package = "sha2", version = "0.10", optional = true }
-sha-3 = { package = "sha3", version = "0.10", optional = true }
-strip-ansi-escapes = { version = "0.2", optional = true }
 snap = { version = "1", optional = true }
 syslog_loose = { version = "0.22", optional = true }
 termcolor = { version = "1", optional = true }
@@ -190,41 +156,12 @@ community-id = { version = "0.2", optional = true }
 
 zstd = { version = "0.13", default-features = false, features = ["wasm"], optional = true }
 
-# Cryptography
-aes = { version = "0.8", optional = true }
-aes-siv = { version = "0.7.0", optional = true }
-chacha20poly1305 = { version = "0.10", optional = true }
-crypto_secretbox = { version = "0.1", features = ["salsa20"], optional = true }
-ipcrypt-rs = { version = "0.9.4", optional = true, default-features = false }
-
-# Cryptography - Block Modes
-ctr = { version = "0.9", optional = true }
-cbc = { version = "0.1", optional = true, features = ["alloc"] }
-cfb-mode = { version = "0.8", optional = true }
-ofb = { version = "0.6", optional = true }
-
 # Protobuf support.
 prost = { version = "0.13", default-features = false, optional = true, features = ["std"] }
 prost-reflect = { version = "0.14", default-features = false, optional = true }
 unicode-segmentation = "1.12.0"
 lz4_flex = "0.11.5"
 nom-language = { version = "0.1.0", default-features = false }
-
-# HTTP support (optional, gated behind enable_network_functions).
-reqwest = { version = "0.12", default-features = false, features = ["http2", "rustls-tls-native-roots"], optional = true }
-reqwest-middleware = { version = "0.4", default-features = false, optional = true }
-reqwest-retry = { version = "0.7", default-features = false, optional = true }
-
-# Dependencies used for non-WASM
-[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
-dns-lookup = { version = "3", optional = true }
-domain = { version = "0.11.0", optional = true, features = ["resolv-sync", "serde"] }
-hostname = { version = "0.4", optional = true }
-grok = { version = "2.4", optional = true }
-onig = { version = "6", default-features = false, optional = true }
-tokio = { version = "1.45", optional = true, features = ["io-util", "macros", "net", "time", "sync", "rt", "rt-multi-thread"] }
-uuid = { version = "1", features = ["v4", "v7"], optional = true }
-jsonschema = { version = "0.38.1", default-features = false }
 
 # Dependencies used for WASM
 [target.'cfg(target_arch = "wasm32")'.dependencies]
