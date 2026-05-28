@@ -215,7 +215,7 @@ impl<'a> Iterator for ValueIter<'a> {
                 let value_mut = unsafe { &mut *std::ptr::addr_of_mut!(*value) };
 
                 IterItem::IndexValue(self.index, value_mut)
-            },
+            }
 
             // The `IterData::Value` variant indicates we want to return
             // a non-recursive value. This could also be a collection type, if
