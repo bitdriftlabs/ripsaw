@@ -313,7 +313,7 @@ impl<'a> Compiler<'a> {
         state: &mut TypeState,
     ) -> Option<(Block, TypeDef)> {
         let original_state = state.clone();
-        let exprs = self.compile_exprs(node.into_inner().into_iter(), state)?;
+        let exprs = self.compile_exprs(node.into_inner(), state)?;
         let block = Block::new_scoped(exprs);
 
         // The type information from `compile_exprs` doesn't applying the "scoping" from the block.
@@ -324,7 +324,7 @@ impl<'a> Compiler<'a> {
     }
 
     fn compile_array(&mut self, node: Node<ast::Array>, state: &mut TypeState) -> Option<Array> {
-        let exprs = self.compile_exprs(node.into_inner().into_iter(), state)?;
+        let exprs = self.compile_exprs(node.into_inner(), state)?;
 
         Some(Array::new(exprs))
     }

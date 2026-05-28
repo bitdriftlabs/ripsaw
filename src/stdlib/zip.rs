@@ -10,6 +10,7 @@ fn zip2(value0: Value, value1: Value) -> Resolved {
         .collect())
 }
 
+#[allow(clippy::result_large_err)]
 fn zip_all(value: Value) -> Resolved {
     Ok(MultiZip(
         value

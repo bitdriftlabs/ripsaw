@@ -178,7 +178,9 @@ impl FunctionExpression for ToFloatFn {
 
 #[cfg(test)]
 mod tests {
-    use chrono::prelude::*;
+    use chrono::TimeZone;
+    use chrono::Timelike;
+    use chrono::prelude::Utc;
 
     use super::*;
 

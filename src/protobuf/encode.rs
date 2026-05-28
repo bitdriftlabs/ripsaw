@@ -1,7 +1,7 @@
 use crate::compiler::prelude::*;
 use crate::value::value::simdutf_bytes_utf8_lossy;
 use chrono::Timelike;
-#[cfg(feature = "enable_system_functions")]
+#[cfg(test)]
 use prost::Message;
 use prost_reflect::{DynamicMessage, FieldDescriptor, Kind, MapKey, MessageDescriptor};
 use std::collections::HashMap;
@@ -103,12 +103,8 @@ fn convert_value_raw(
                     .ok_or("Internal error with proto map processing")?;
                 let mut map: HashMap<MapKey, prost_reflect::Value> = HashMap::new();
                 for (key, val) in o.into_iter() {
-                    match convert_value(&value_field, val, options) {
-                        Ok(prost_val) => {
-                            map.insert(MapKey::String(key.into()), prost_val);
-                        }
-                        Err(e) => return Err(e),
-                    }
+                    let prost_val = convert_value(&value_field, val, options)?;
+                    map.insert(MapKey::String(key.into()), prost_val);
                 }
                 Ok(prost_reflect::Value::Map(map))
             } else {
@@ -220,7 +216,7 @@ pub fn encode_message(
     }
 }
 
-#[cfg(feature = "enable_system_functions")]
+#[cfg(test)]
 pub(crate) fn encode_proto(descriptor: &MessageDescriptor, value: Value) -> Resolved {
     let message = encode_message(descriptor, value, &Options::default())?;
     let mut buf = Vec::new();
