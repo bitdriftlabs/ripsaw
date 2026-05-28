@@ -17,7 +17,7 @@ members = [
   ".",
   "lib/cli",
   "lib/tests",
-  "lib/fuzz",
+  # "lib/fuzz",
   "lib/docs",
 ]
 
