@@ -26,6 +26,7 @@ impl<'a> Context<'a> {
         }
     }
 
+    #[must_use]
     pub fn with_dynamic_state(mut self, state: &'a mut dyn Any) -> Self {
         self.dynamic_state = Some(state);
         self
