@@ -1,7 +1,7 @@
 use crate::compiler::prelude::*;
 use crate::value::value::simdutf_bytes_utf8_lossy;
 use chrono::Timelike;
-#[cfg(feature = "enable_system_functions")]
+#[cfg(test)]
 use prost::Message;
 use prost_reflect::{DynamicMessage, FieldDescriptor, Kind, MapKey, MessageDescriptor};
 use std::collections::HashMap;
@@ -220,7 +220,7 @@ pub fn encode_message(
     }
 }
 
-#[cfg(feature = "enable_system_functions")]
+#[cfg(test)]
 pub(crate) fn encode_proto(descriptor: &MessageDescriptor, value: Value) -> Resolved {
     let message = encode_message(descriptor, value, &Options::default())?;
     let mut buf = Vec::new();

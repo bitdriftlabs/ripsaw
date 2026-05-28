@@ -536,7 +536,7 @@ mod test {
                 c = "2"
                 "3"
             }
-            d = random_bool()
+            d = abs(-9)
             . = d
         "#};
 
@@ -549,13 +549,13 @@ mod test {
     #[test]
     fn unused_function_result() {
         let source = indoc! {r#"
-            .r = random_int(0,1)
-            random_bool()
+            .r = abs(-9)
+            abs(12)
             "program result"
         "#};
         unused_test(
             source,
-            &["unused result for function call `random_bool()`".to_string()],
+            &["unused result for function call `abs(12)`".to_string()],
         );
     }
 
@@ -598,7 +598,7 @@ mod test {
 
             y = 2
             z = 3
-            if (y < 2 && random_int(0, 4) < 3 ) { 0 } else { .c = z }
+            if (y < 2 && abs(4) < 3 ) { 0 } else { .c = z }
 
             x = {}
             x.a = 1
@@ -612,7 +612,7 @@ mod test {
         let source = indoc! {"
             x = {}
             x.foo = 1
-            .r = random_int!({x.foo}, x.foo + 1)
+            .r = abs(0)
 
             x.bar = 2
             exists(field: x.bar)
@@ -656,7 +656,7 @@ mod test {
     fn used_function_result_in_fallible_block() {
         let source = indoc! {r#"
             {
-              parse_json("invalid")
+              parse_int("invalid")
               2
             } ?? 1
         "#};
