@@ -55,6 +55,7 @@ cfg_if::cfg_if! {
         mod join;
         mod keys;
         mod length;
+        mod map;
         mod map_keys;
         mod map_values;
         mod r#match;
@@ -177,6 +178,7 @@ cfg_if::cfg_if! {
             join::Join,
             keys::Keys,
             length::Length,
+            map::Map,
             map_keys::MapKeys,
             map_values::MapValues,
             match_any::MatchAny,
