@@ -143,6 +143,7 @@ pub fn run_tests<T>(
                 program,
                 warnings,
                 config: _,
+                ast: _,
             }) => {
                 warnings_count += warnings.len();
 

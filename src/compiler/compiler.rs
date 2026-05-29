@@ -25,6 +25,7 @@ pub struct CompilationResult {
     pub program: Program,
     pub warnings: DiagnosticList,
     pub config: CompileConfig,
+    pub ast: ast::Program,
 }
 
 /// The compiler has many `compile_*` functions. These all accept a `state` param which
@@ -117,7 +118,7 @@ impl<'a> Compiler<'a> {
             fallible_expression_error: None,
             config,
         };
-        let expressions = compiler.compile_root_exprs(ast, &mut state);
+        let expressions = compiler.compile_root_exprs(ast.clone(), &mut state);
 
         let (errors, warnings): (Vec<_>, Vec<_>) =
             compiler.diagnostics.into_iter().partition(|diagnostic| {
@@ -144,6 +145,7 @@ impl<'a> Compiler<'a> {
             },
             warnings: warnings.into(),
             config: compiler.config,
+            ast,
         };
         Ok(result)
     }
