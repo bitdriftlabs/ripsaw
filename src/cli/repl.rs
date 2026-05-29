@@ -36,8 +36,8 @@ static ERRORS: LazyLock<Vec<String>> = LazyLock::new(|| {
     .collect()
 });
 
-const DOCS_URL: &str = "https://vector.dev/docs/reference/vrl";
-const ERRORS_URL_ROOT: &str = "https://errors.vrl.dev";
+const DOCS_URL: &str = "https://docs.bitdrift.io/product/workflows/scripting/language";
+const ERRORS_URL_ROOT: &str = "https://docs.bitdrift.io/product/workflows/scripting/errors";
 const RESERVED_TERMS: &[&str] = &[
     "next",
     "prev",

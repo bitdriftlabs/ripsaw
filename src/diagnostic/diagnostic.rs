@@ -140,7 +140,8 @@ impl From<Diagnostic> for diagnostic::Diagnostic<()> {
         }
 
         notes.push(Note::SeeLangDocs);
-        notes.push(Note::SeeRepl);
+        // TODO(delisa): re-enable when there's a playground for these
+        // notes.push(Note::SeeRepl);
 
         diagnostic::Diagnostic {
             severity: diag.severity.into(),
