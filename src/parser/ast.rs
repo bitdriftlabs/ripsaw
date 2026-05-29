@@ -461,7 +461,11 @@ impl fmt::Debug for Literal {
 
 impl SyntaxEq for Literal {
     fn syntax_eq(&self, other: &Self) -> bool {
-        self == other
+        use Literal::String;
+        match (self, other) {
+            (String(t1), String(t2)) => t1.to_string() == t2.to_string(),
+            (o1, o2) => o1 == o2,
+        }
     }
 }
 
@@ -1611,5 +1615,48 @@ return x + 1
         let (prog1, prog2) = (parse("abort").unwrap(), parse("abort \"\"").unwrap());
         assert_ne!(prog1, prog2);
         assert!(!prog1.syntax_eq(&prog2));
+    }
+
+    #[test]
+    fn equal_literal_value_keeps_syntactic_equality() {
+        let (prog1, prog2) = (
+            parse(r#"run("foo")"#).unwrap(),
+            parse(r#" run("foo")"#).unwrap(),
+        );
+        assert_ne!(prog1, prog2);
+        assert!(
+            prog1.syntax_eq(&prog2),
+            "prog1 = {prog1:#?}, prog2 = {prog2:#?}"
+        );
+
+        let (prog1, prog2) = (
+            parse(r#"run("{{ interop }}-val")"#).unwrap(),
+            parse(r#" run("{{ interop }}-val")"#).unwrap(),
+        );
+        assert_ne!(prog1, prog2);
+        assert!(
+            prog1.syntax_eq(&prog2),
+            "prog1 = {prog1:#?}, prog2 = {prog2:#?}"
+        );
+
+        let (prog1, prog2) = (
+            parse(r#"run("{{ interop }}-val")"#).unwrap(),
+            parse(r#" run("{{ interop }}-other stuff")"#).unwrap(),
+        );
+        assert_ne!(prog1, prog2);
+        assert!(
+            !prog1.syntax_eq(&prog2),
+            "prog1 = {prog1:#?}, prog2 = {prog2:#?}"
+        );
+
+        let (prog1, prog2) = (
+            parse(r#"run("{{ interop }}-val")"#).unwrap(),
+            parse(r#" run("{{ other }}-val")"#).unwrap(),
+        );
+        assert_ne!(prog1, prog2);
+        assert!(
+            !prog1.syntax_eq(&prog2),
+            "prog1 = {prog1:#?}, prog2 = {prog2:#?}"
+        );
     }
 }
