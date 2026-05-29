@@ -31,9 +31,9 @@ mod note;
 mod severity;
 mod span;
 
-const VRL_DOCS_ROOT_URL: &str = "https://vrl.dev";
-const VRL_ERROR_DOCS_ROOT_URL: &str = "https://errors.vrl.dev";
-const VRL_FUNCS_ROOT_URL: &str = "https://functions.vrl.dev";
+const VRL_DOCS_ROOT_URL: &str = "https://docs.bitdrift.io/product/workflows/scripting/language";
+const VRL_ERROR_DOCS_ROOT_URL: &str = "https://docs.bitdrift.io/product/workflows/scripting/errors";
+const VRL_FUNCS_ROOT_URL: &str = "https://docs.bitdrift.io/product/workflows/scripting/functions";
 
 /// A trait that can be implemented by error types to provide diagnostic
 /// information about the given error.
@@ -78,20 +78,20 @@ impl Urls {
 
     #[must_use]
     pub fn func_docs(ident: &str) -> String {
-        format!("{VRL_FUNCS_ROOT_URL}/{ident}")
+        format!("{VRL_FUNCS_ROOT_URL}#{ident}")
     }
 
     fn error_handling_url() -> String {
-        format!("{VRL_ERROR_DOCS_ROOT_URL}/#handling")
+        format!("{VRL_ERROR_DOCS_ROOT_URL}#error-handling")
     }
 
     fn error_code_url(code: usize) -> String {
-        format!("{VRL_ERROR_DOCS_ROOT_URL}/{code}")
+        format!("{VRL_ERROR_DOCS_ROOT_URL}#{code}")
     }
 
     #[must_use]
     pub fn expression_docs_url(expr: &str) -> String {
-        format!("{VRL_DOCS_ROOT_URL}/expressions/{expr}")
+        format!("{VRL_DOCS_ROOT_URL}#{expr}")
     }
 
     fn example_docs() -> String {
@@ -100,6 +100,6 @@ impl Urls {
 
     #[must_use]
     pub fn func_characteristics() -> String {
-        format!("{VRL_DOCS_ROOT_URL}/expressions/#function-call-characteristics")
+        format!("{VRL_DOCS_ROOT_URL}#function-call")
     }
 }
