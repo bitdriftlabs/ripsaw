@@ -15,6 +15,38 @@ use ordered_float::NotNan;
 
 use super::{Error, template_string::TemplateString};
 
+/// Express syntactic rather than textual equality
+pub trait SyntaxEq {
+    /// true if self is syntactically equal to other
+    fn syntax_eq(&self, other: &Self) -> bool;
+}
+
+impl<T: SyntaxEq> SyntaxEq for Vec<Node<T>> {
+    fn syntax_eq(&self, other: &Self) -> bool {
+        self.len() == other.len()
+            && self
+                .iter()
+                .enumerate()
+                .all(|(index, element)| element.syntax_eq(&other[index]))
+    }
+}
+
+impl<T: SyntaxEq> SyntaxEq for Option<T> {
+    fn syntax_eq(&self, other: &Self) -> bool {
+        match (self, other) {
+            (None, None) => true,
+            (Some(n1), Some(n2)) => n1.syntax_eq(n2),
+            (_, _) => false,
+        }
+    }
+}
+
+impl<T: SyntaxEq> SyntaxEq for Box<T> {
+    fn syntax_eq(&self, other: &Self) -> bool {
+        self.as_ref().syntax_eq(other.as_ref())
+    }
+}
+
 // -----------------------------------------------------------------------------
 // node
 // -----------------------------------------------------------------------------
@@ -134,6 +166,12 @@ impl<T: Hash> Hash for Node<T> {
     }
 }
 
+impl<T: SyntaxEq> SyntaxEq for Node<T> {
+    fn syntax_eq(&self, other: &Self) -> bool {
+        self.node.syntax_eq(&other.node)
+    }
+}
+
 // -----------------------------------------------------------------------------
 // program
 // -----------------------------------------------------------------------------
@@ -178,6 +216,12 @@ impl IntoIterator for Program {
     }
 }
 
+impl SyntaxEq for Program {
+    fn syntax_eq(&self, other: &Self) -> bool {
+        self.0.syntax_eq(&other.0)
+    }
+}
+
 // -----------------------------------------------------------------------------
 // root expression
 // -----------------------------------------------------------------------------
@@ -212,6 +256,18 @@ impl fmt::Display for RootExpr {
         match self {
             Expr(v) => v.fmt(f),
             Error(v) => v.fmt(f),
+        }
+    }
+}
+
+impl SyntaxEq for RootExpr {
+    fn syntax_eq(&self, other: &Self) -> bool {
+        use RootExpr::{Error, Expr};
+
+        match (self, other) {
+            (Expr(e1), Expr(e2)) => e1.syntax_eq(e2),
+            (Error(e1), Error(e2)) => e1 == e2,
+            (_, _) => false,
         }
     }
 }
@@ -284,6 +340,30 @@ impl fmt::Display for Expr {
     }
 }
 
+impl SyntaxEq for Expr {
+    fn syntax_eq(&self, other: &Self) -> bool {
+        use Expr::{
+            Abort, Assignment, Container, FunctionCall, IfStatement, Literal, Op, Query, Return,
+            Unary, Variable,
+        };
+
+        match (self, other) {
+            (Literal(v), Literal(v2)) => v.syntax_eq(v2),
+            (Container(v), Container(v2)) => v.syntax_eq(v2),
+            (Op(v), Op(v2)) => v.syntax_eq(v2),
+            (IfStatement(v), IfStatement(v2)) => v.syntax_eq(v2),
+            (Assignment(v), Assignment(v2)) => v.syntax_eq(v2),
+            (Query(v), Query(v2)) => v.syntax_eq(v2),
+            (FunctionCall(v), FunctionCall(v2)) => v.syntax_eq(v2),
+            (Variable(v), Variable(v2)) => v.syntax_eq(v2),
+            (Unary(v), Unary(v2)) => v.syntax_eq(v2),
+            (Abort(v), Abort(v2)) => v.syntax_eq(v2),
+            (Return(v), Return(v2)) => v.syntax_eq(v2),
+            (_, _) => false,
+        }
+    }
+}
+
 // -----------------------------------------------------------------------------
 // ident
 // -----------------------------------------------------------------------------
@@ -334,6 +414,12 @@ impl From<String> for Ident {
     }
 }
 
+impl SyntaxEq for Ident {
+    fn syntax_eq(&self, other: &Self) -> bool {
+        self == other
+    }
+}
+
 // -----------------------------------------------------------------------------
 // literals
 // -----------------------------------------------------------------------------
@@ -370,6 +456,12 @@ impl fmt::Display for Literal {
 impl fmt::Debug for Literal {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "Literal({self})")
+    }
+}
+
+impl SyntaxEq for Literal {
+    fn syntax_eq(&self, other: &Self) -> bool {
+        self == other
     }
 }
 
@@ -410,6 +502,20 @@ impl fmt::Debug for Container {
         };
 
         write!(f, "Container({value})")
+    }
+}
+
+impl SyntaxEq for Container {
+    fn syntax_eq(&self, other: &Self) -> bool {
+        use Container::{Array, Block, Group, Object};
+
+        match (self, other) {
+            (Group(o1), Group(o2)) => o1.syntax_eq(o2),
+            (Block(o1), Block(o2)) => o1.syntax_eq(o2),
+            (Array(o1), Array(o2)) => o1.syntax_eq(o2),
+            (Object(o1), Object(o2)) => o1.syntax_eq(o2),
+            (_, _) => false,
+        }
     }
 }
 
@@ -470,6 +576,12 @@ impl fmt::Debug for Block {
     }
 }
 
+impl SyntaxEq for Block {
+    fn syntax_eq(&self, other: &Self) -> bool {
+        self.0.syntax_eq(&other.0)
+    }
+}
+
 // -----------------------------------------------------------------------------
 // group
 // -----------------------------------------------------------------------------
@@ -493,6 +605,12 @@ impl fmt::Display for Group {
 impl fmt::Debug for Group {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "Group({:?})", self.0)
+    }
+}
+
+impl SyntaxEq for Group {
+    fn syntax_eq(&self, other: &Self) -> bool {
+        self.0.syntax_eq(&other.0)
     }
 }
 
@@ -547,6 +665,12 @@ impl FromIterator<Node<Expr>> for Array {
     }
 }
 
+impl SyntaxEq for Array {
+    fn syntax_eq(&self, other: &Self) -> bool {
+        self.0.syntax_eq(&other.0)
+    }
+}
+
 // -----------------------------------------------------------------------------
 // object
 // -----------------------------------------------------------------------------
@@ -598,6 +722,17 @@ impl FromIterator<(Node<String>, Node<Expr>)> for Object {
     }
 }
 
+impl SyntaxEq for Object {
+    fn syntax_eq(&self, other: &Self) -> bool {
+        self.0.len() == other.0.len()
+            && self.0.iter().all(|(self_key, self_value)| {
+                other.0.iter().any(|(other_key, other_value)| {
+                    other_key.inner() == self_key.inner() && self_value.syntax_eq(other_value)
+                })
+            })
+    }
+}
+
 // -----------------------------------------------------------------------------
 // if statement
 // -----------------------------------------------------------------------------
@@ -631,6 +766,14 @@ impl fmt::Display for IfStatement {
         }
 
         Ok(())
+    }
+}
+
+impl SyntaxEq for IfStatement {
+    fn syntax_eq(&self, other: &Self) -> bool {
+        self.predicate.syntax_eq(&other.predicate)
+            && self.if_node.syntax_eq(&other.if_node)
+            && self.else_node.syntax_eq(&other.else_node)
     }
 }
 
@@ -684,6 +827,16 @@ impl fmt::Debug for Predicate {
     }
 }
 
+impl SyntaxEq for Predicate {
+    fn syntax_eq(&self, other: &Self) -> bool {
+        match (self, other) {
+            (Predicate::One(n1), Predicate::One(n2)) => n1.syntax_eq(n2),
+            (Predicate::Many(n1), Predicate::Many(n2)) => n1.syntax_eq(n2),
+            (_, _) => false,
+        }
+    }
+}
+
 // -----------------------------------------------------------------------------
 // operation
 // -----------------------------------------------------------------------------
@@ -700,6 +853,12 @@ impl fmt::Display for Op {
 impl fmt::Debug for Op {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "Op({:?} {} {:?})", self.0, self.1, self.2)
+    }
+}
+
+impl SyntaxEq for Op {
+    fn syntax_eq(&self, other: &Self) -> bool {
+        self.0.syntax_eq(&other.0) && self.1.syntax_eq(&other.1) && self.2.syntax_eq(&other.2)
     }
 }
 
@@ -789,6 +948,12 @@ impl FromStr for Opcode {
     }
 }
 
+impl SyntaxEq for Opcode {
+    fn syntax_eq(&self, other: &Self) -> bool {
+        self == other
+    }
+}
+
 // -----------------------------------------------------------------------------
 // assignment
 // -----------------------------------------------------------------------------
@@ -844,6 +1009,12 @@ impl fmt::Debug for AssignmentOp {
     }
 }
 
+impl SyntaxEq for AssignmentOp {
+    fn syntax_eq(&self, other: &Self) -> bool {
+        self == other
+    }
+}
+
 impl fmt::Display for Assignment {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         use Assignment::{Infallible, Single};
@@ -864,6 +1035,42 @@ impl fmt::Debug for Assignment {
             Infallible { ok, err, op, expr } => {
                 write!(f, "Ok({ok:?}), Err({err:?}) {op:?} {expr:?}")
             }
+        }
+    }
+}
+
+impl SyntaxEq for Assignment {
+    fn syntax_eq(&self, other: &Self) -> bool {
+        use Assignment::{Infallible, Single};
+
+        match (self, other) {
+            (
+                Single {
+                    target: t1,
+                    op: o1,
+                    expr: e1,
+                },
+                Single {
+                    target: t2,
+                    op: o2,
+                    expr: e2,
+                },
+            ) => t1.syntax_eq(t2) && o1.syntax_eq(o2) && e1.syntax_eq(e2),
+            (
+                Infallible {
+                    ok: ok1,
+                    err: e1,
+                    op: op1,
+                    expr: ex1,
+                },
+                Infallible {
+                    ok: ok2,
+                    err: e2,
+                    op: op2,
+                    expr: ex2,
+                },
+            ) => ok1.syntax_eq(ok2) && e1.syntax_eq(e2) && op1.syntax_eq(op2) && ex1.syntax_eq(ex2),
+            (_, _) => false,
         }
     }
 }
@@ -939,6 +1146,22 @@ impl fmt::Debug for AssignmentTarget {
     }
 }
 
+impl SyntaxEq for AssignmentTarget {
+    fn syntax_eq(&self, other: &Self) -> bool {
+        use AssignmentTarget::{External, Internal, Noop, Query};
+
+        match (self, other) {
+            (Noop, Noop) => true,
+            (Query(q1), Query(q2)) => {
+                q1.target.syntax_eq(&q2.target) && q1.path.inner() == q2.path.inner()
+            }
+            (Internal(Ident(s1), p1), Internal(Ident(s2), p2)) => s1 == s2 && p1 == p2,
+            (External(p1), External(p2)) => p1 == p2,
+            (_, _) => false,
+        }
+    }
+}
+
 // -----------------------------------------------------------------------------
 // query
 // -----------------------------------------------------------------------------
@@ -958,6 +1181,12 @@ impl fmt::Display for Query {
 impl fmt::Debug for Query {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "Query({:?}, {:?})", self.target, self.path)
+    }
+}
+
+impl SyntaxEq for Query {
+    fn syntax_eq(&self, other: &Self) -> bool {
+        self.target.syntax_eq(&other.target) && self.path.inner() == other.path.inner()
     }
 }
 
@@ -997,6 +1226,20 @@ impl fmt::Debug for QueryTarget {
             },
             FunctionCall(v) => v.fmt(f),
             Container(v) => v.fmt(f),
+        }
+    }
+}
+
+impl SyntaxEq for QueryTarget {
+    fn syntax_eq(&self, other: &Self) -> bool {
+        use QueryTarget::{Container, External, FunctionCall, Internal};
+
+        match (self, other) {
+            (Internal(ident1), Internal(ident2)) => ident1 == ident2,
+            (External(prefix1), External(prefix2)) => prefix1 == prefix2,
+            (Container(c1), Container(c2)) => c1.syntax_eq(c2),
+            (FunctionCall(f1), FunctionCall(f2)) => f1.syntax_eq(f2),
+            (_, _) => false,
         }
     }
 }
@@ -1069,6 +1312,15 @@ impl fmt::Debug for FunctionCall {
     }
 }
 
+impl SyntaxEq for FunctionCall {
+    fn syntax_eq(&self, other: &Self) -> bool {
+        self.ident.syntax_eq(&other.ident)
+            && self.abort_on_error == other.abort_on_error
+            && self.arguments.syntax_eq(&other.arguments)
+            && self.closure.syntax_eq(&other.closure)
+    }
+}
+
 /// An argument passed to a function call.
 ///
 /// The first value is an optional identifier provided for the argument, making
@@ -1098,6 +1350,12 @@ impl fmt::Debug for FunctionArgument {
         } else {
             write!(f, "Argument({:?})", self.expr)
         }
+    }
+}
+
+impl SyntaxEq for FunctionArgument {
+    fn syntax_eq(&self, other: &Self) -> bool {
+        self.ident.syntax_eq(&other.ident) && self.expr.syntax_eq(&other.expr)
     }
 }
 
@@ -1142,6 +1400,12 @@ impl fmt::Debug for FunctionClosure {
     }
 }
 
+impl SyntaxEq for FunctionClosure {
+    fn syntax_eq(&self, other: &Self) -> bool {
+        self.variables.syntax_eq(&other.variables) && self.block.syntax_eq(&other.block)
+    }
+}
+
 // -----------------------------------------------------------------------------
 // unary
 // -----------------------------------------------------------------------------
@@ -1170,6 +1434,16 @@ impl fmt::Debug for Unary {
         };
 
         write!(f, "Unary({value})")
+    }
+}
+
+impl SyntaxEq for Unary {
+    fn syntax_eq(&self, other: &Self) -> bool {
+        use Unary::Not;
+
+        match (self, other) {
+            (Not(node1), Not(node2)) => node1.syntax_eq(node2),
+        }
     }
 }
 
@@ -1204,6 +1478,12 @@ impl fmt::Debug for Not {
     }
 }
 
+impl SyntaxEq for Not {
+    fn syntax_eq(&self, other: &Self) -> bool {
+        self.1.syntax_eq(&other.1)
+    }
+}
+
 // -----------------------------------------------------------------------------
 // abort
 // -----------------------------------------------------------------------------
@@ -1230,6 +1510,12 @@ impl fmt::Debug for Abort {
     }
 }
 
+impl SyntaxEq for Abort {
+    fn syntax_eq(&self, other: &Self) -> bool {
+        self.message.syntax_eq(&other.message)
+    }
+}
+
 // -----------------------------------------------------------------------------
 // return
 // -----------------------------------------------------------------------------
@@ -1248,5 +1534,82 @@ impl fmt::Display for Return {
 impl fmt::Debug for Return {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "Return({:?})", self.expr)
+    }
+}
+
+impl SyntaxEq for Return {
+    fn syntax_eq(&self, other: &Self) -> bool {
+        self.expr.syntax_eq(&other.expr)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::parser::parse;
+
+    use super::SyntaxEq;
+
+    #[test]
+    fn comments_and_whitespace_do_not_affect_syntactic_equality() {
+        let (prog1, prog2) = (
+            parse(
+                r".x[1].y = sum(1, 2)
+x = read(.items) -> |item| {
+  item * 2
+}
+
+if x == null {
+    abort
+}
+return x + 1
+",
+            )
+            .unwrap(),
+            parse(
+                r"# adding together
+.x[1].y =  sum(1, 2)
+
+x = read(.items) -> |item| {
+  item * 2 # doubling
+}
+if x == null {
+    abort
+}
+
+return x + 1
+",
+            )
+            .unwrap(),
+        );
+        assert_ne!(prog1, prog2);
+        assert!(prog1.syntax_eq(&prog2))
+    }
+
+    #[test]
+    fn abort_message_changes_syntactic_equality() {
+        let (prog1, prog2) = (
+            parse(r#"abort "bad apple""#).unwrap(),
+            parse(r#"abort "no apple""#).unwrap(),
+        );
+        assert_ne!(prog1, prog2);
+        assert!(!prog1.syntax_eq(&prog2));
+
+        let (prog1, prog2) = (parse("abort").unwrap(), parse("abort \"\"").unwrap());
+        assert_ne!(prog1, prog2);
+        assert!(!prog1.syntax_eq(&prog2));
+    }
+
+    #[test]
+    fn function_arg_changes_syntactic_equality() {
+        let (prog1, prog2) = (
+            parse(r#"run("foo", 2)"#).unwrap(),
+            parse(r#"run("foo", 3)"#).unwrap(),
+        );
+        assert_ne!(prog1, prog2);
+        assert!(!prog1.syntax_eq(&prog2));
+
+        let (prog1, prog2) = (parse("abort").unwrap(), parse("abort \"\"").unwrap());
+        assert_ne!(prog1, prog2);
+        assert!(!prog1.syntax_eq(&prog2));
     }
 }
