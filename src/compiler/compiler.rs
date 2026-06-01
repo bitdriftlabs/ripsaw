@@ -21,6 +21,7 @@ use super::state::TypeState;
 
 pub(crate) type DiagnosticsMessages = Vec<Box<dyn DiagnosticMessage>>;
 
+#[derive(Debug)]
 pub struct CompilationResult {
     pub program: Program,
     pub warnings: DiagnosticList,
