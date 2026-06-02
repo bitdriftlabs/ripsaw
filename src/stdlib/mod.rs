@@ -12,6 +12,7 @@ cfg_if::cfg_if! {
         // Base stdlib modules (always included with stdlib-base)
         mod abs;
         mod append;
+        mod assert;
         mod array;
         mod basename;
         mod boolean;
@@ -132,6 +133,7 @@ cfg_if::cfg_if! {
             // ===== Base stdlib functions (always included with stdlib-base) =====
             abs::Abs,
             append::Append,
+            assert::Assert,
             basename::BaseName,
             boolean::Boolean,
             ceil::Ceil,
