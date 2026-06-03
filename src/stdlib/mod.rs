@@ -14,6 +14,7 @@ cfg_if::cfg_if! {
         mod all;
         mod any;
         mod append;
+        mod assert;
         mod array;
         mod basename;
         mod boolean;
@@ -136,6 +137,7 @@ cfg_if::cfg_if! {
             all::All,
             any::Any,
             append::Append,
+            assert::Assert,
             basename::BaseName,
             boolean::Boolean,
             ceil::Ceil,
