@@ -6,6 +6,7 @@ use std::{
 
 type AnyMap = HashMap<TypeId, Box<dyn Any>>;
 
+#[derive(Debug)]
 pub struct CompileConfig {
     /// Custom context injected by the external environment
     custom: AnyMap,

@@ -11,6 +11,8 @@ cfg_if::cfg_if! {
     if #[cfg(feature = "stdlib-base")] {
         // Base stdlib modules (always included with stdlib-base)
         mod abs;
+        mod all;
+        mod any;
         mod append;
         mod array;
         mod basename;
@@ -131,6 +133,8 @@ cfg_if::cfg_if! {
         stdlib_functions! {
             // ===== Base stdlib functions (always included with stdlib-base) =====
             abs::Abs,
+            all::All,
+            any::Any,
             append::Append,
             basename::BaseName,
             boolean::Boolean,
