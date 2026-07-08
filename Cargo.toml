@@ -18,7 +18,6 @@ members = [
   "lib/cli",
   "lib/tests",
   # "lib/fuzz",
-  "lib/docs",
 ]
 
 [workspace.dependencies]
@@ -188,10 +187,6 @@ ua-parser = { version = "0.2" }
 
 [[bench]]
 name = "kind"
-harness = false
-
-[[bench]]
-name = "keyvalue"
 harness = false
 
 [[bench]]
