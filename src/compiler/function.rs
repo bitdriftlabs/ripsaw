@@ -71,7 +71,7 @@ pub trait Function: Send + Sync + fmt::Debug {
         true
     }
 
-    /// One or more examples demonstrating usage of the function in VRL source
+    /// One or more examples demonstrating usage of the function in Ripsaw source
     /// code.
     fn examples(&self) -> &'static [Example];
 

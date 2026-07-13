@@ -5,7 +5,7 @@ use crate::compiler::{
     Context, Expression, Span, TypeDef,
     expression::{Expr, Resolved},
     parser::Node,
-    value::{Kind, VrlValueConvert},
+    value::{Kind, RipsawValueConvert},
 };
 use crate::diagnostic::{DiagnosticMessage, Label, Note, Urls};
 

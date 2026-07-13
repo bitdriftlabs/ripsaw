@@ -1,4 +1,4 @@
-//! Contains the main "Value" type for Vector and VRL, as well as helper methods.
+//! Contains the main "Value" type for Vector and Ripsaw, as well as helper methods.
 
 #[allow(clippy::module_name_repetitions)]
 pub use super::value::regex::ValueRegex;
@@ -33,7 +33,7 @@ pub type StdError = Box<dyn std::error::Error + Send + Sync + 'static>;
 /// The storage mapping for the `Object` variant.
 pub type ObjectMap = BTreeMap<KeyString, Value>;
 
-/// The main value type used in Vector events, and VRL.
+/// The main value type used in Vector events, and Ripsaw.
 #[derive(Eq, PartialEq, Hash, Debug, Clone)]
 pub enum Value {
     /// Bytes - usually representing a UTF8 String.
@@ -41,7 +41,7 @@ pub enum Value {
 
     /// Regex.
     /// When used in the context of Vector this is treated identically to Bytes. It has
-    /// additional meaning in the context of VRL.
+    /// additional meaning in the context of Ripsaw.
     Regex(ValueRegex),
 
     /// Integer.

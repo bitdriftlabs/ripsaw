@@ -18,5 +18,5 @@ error: unnecessary error assignment
   │ this error assignment is unnecessary
   │
   = hint: assign to "ok", without assigning to "err"
-  = see language documentation at: https://vector.dev/docs/reference/vrl/
+  = see language documentation at https://docs.bitdrift.io/product/workflows/scripting/language
 ```

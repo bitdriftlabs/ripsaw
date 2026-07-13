@@ -1,7 +1,7 @@
 /// # Unused Expression Checker
 ///
-/// This module provides functionality for traversing VRL (Vector Remap Language) Abstract Syntax Trees (AST).
-/// It's designed to detect and report unused expressions, helping users clean up and optimize their VRL scripts.
+/// This module provides functionality for traversing Ripsaw Abstract Syntax Trees (AST).
+/// It's designed to detect and report unused expressions, helping users clean up and optimize their Ripsaw scripts.
 /// Initially, it will generate warnings for unused expressions. These warnings might be escalated to errors
 /// in future versions, once the module has been battle-tested.
 ///
@@ -399,7 +399,7 @@ impl AstVisitor<'_> {
         state.decrease_level();
     }
 
-    /// This function traverses the VRL AST and detects unused results.
+    /// This function traverses the Ripsaw AST and detects unused results.
     /// An expression might have side-effects, in that case we do not except its result to be used.
     ///
     /// We want to detect the following cases:

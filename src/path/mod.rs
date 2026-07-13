@@ -32,8 +32,8 @@
 //! will require one of these traits, rather than a concrete type.
 //!
 //! - [ValuePath] is a path that points to a field inside of a `Value`.
-//! - [TargetPath] is a path that points to a field inside of a `target`. A `target` in VRL refers to
-//!   the external data being processed by a VRL script. A `target` has two main sections that can be
+//! - [TargetPath] is a path that points to a field inside of a `target`. A `target` in Ripsaw refers to
+//!   the external data being processed by a Ripsaw script. A `target` has two main sections that can be
 //!   pointed to, `event` and `metadata`.  [TargetPath::prefix] identifies the section, and
 //!   [TargetPath::value_path] is a [ValuePath] pointing into that section.
 //!

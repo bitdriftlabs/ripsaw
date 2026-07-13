@@ -10,11 +10,11 @@ use chrono::{DateTime, SecondsFormat, Utc};
 pub use test::Test;
 
 use crate::compiler::{
-    CompilationResult, CompileConfig, Function, Program, SecretTarget, TargetValueRef, TimeZone,
-    VrlRuntime, compile_with_external,
+    CompilationResult, CompileConfig, Function, Program, RipsawRuntime, SecretTarget,
+    TargetValueRef, TimeZone, compile_with_external,
     runtime::{Runtime, Terminate},
     state::{ExternalEnv, RuntimeState},
-    value::VrlValueConvert,
+    value::RipsawValueConvert,
 };
 use crate::diagnostic::{DiagnosticList, Formatter};
 use crate::value::Secrets;
@@ -38,7 +38,7 @@ pub struct TestConfig {
     pub verbose: bool,
     pub no_diff: bool,
     pub timings: bool,
-    pub runtime: VrlRuntime,
+    pub runtime: RipsawRuntime,
     pub timezone: TimeZone,
 }
 
@@ -60,7 +60,7 @@ pub fn test_prefix() -> String {
     prefix
 }
 
-pub fn example_vrl_path() -> PathBuf {
+pub fn example_code_path() -> PathBuf {
     test_dir().join("tests").join("example.vrl")
 }
 
@@ -153,7 +153,7 @@ pub fn run_tests<T>(
                     let run_start = Instant::now();
 
                     finalize_config(config_metadata);
-                    let result = run_vrl(program, &mut test.object, cfg.timezone, cfg.runtime);
+                    let result = run_script(program, &mut test.object, cfg.timezone, cfg.runtime);
                     let run_end = run_start.elapsed();
 
                     let timings = {
@@ -206,7 +206,7 @@ fn process_result(
 
     match result {
         Ok(got) => {
-            let got_value = vrl_value_to_json_value(got);
+            let got_value = runtime_value_to_json_value(got);
             let mut failed = false;
 
             let match_mode = if test.check_type_only {
@@ -278,7 +278,7 @@ fn process_result(
                         want.into()
                     });
 
-                let got = vrl_value_to_json_value(test.object.clone());
+                let got = runtime_value_to_json_value(test.object.clone());
                 if got == want {
                     println!("{}{}", Colour::Green.bold().paint("OK"), timings);
                 } else {
@@ -421,7 +421,7 @@ fn compare_partial_diagnostic(got: &str, want: &str) -> bool {
         .all(|(got, want)| got.contains(want))
 }
 
-fn vrl_value_to_json_value(value: Value) -> serde_json::Value {
+fn runtime_value_to_json_value(value: Value) -> serde_json::Value {
     use serde_json::Value::*;
 
     match value {
@@ -431,11 +431,11 @@ fn vrl_value_to_json_value(value: Value) -> serde_json::Value {
         Value::Boolean(v) => v.into(),
         Value::Object(v) => v
             .into_iter()
-            .map(|(k, v)| (k, vrl_value_to_json_value(v)))
+            .map(|(k, v)| (k, runtime_value_to_json_value(v)))
             .collect::<serde_json::Value>(),
         Value::Array(v) => v
             .into_iter()
-            .map(vrl_value_to_json_value)
+            .map(runtime_value_to_json_value)
             .collect::<serde_json::Value>(),
         Value::Timestamp(v) => v.to_rfc3339_opts(SecondsFormat::AutoSi, true).into(),
         Value::Regex(v) => v.to_string().into(),
@@ -471,11 +471,11 @@ impl MatchMode {
     }
 }
 
-fn run_vrl(
+fn run_script(
     program: Program,
     test_object: &mut Value,
     timezone: TimeZone,
-    vrl_runtime: VrlRuntime,
+    runtime: RipsawRuntime,
 ) -> Result<Value, Terminate> {
     let mut metadata = Value::from(BTreeMap::new());
     let mut target = TargetValueRef {
@@ -488,8 +488,8 @@ fn run_vrl(
     target.insert_secret("my_secret", "secret value");
     target.insert_secret("datadog_api_key", "secret value");
 
-    match vrl_runtime {
-        VrlRuntime::Ast => {
+    match runtime {
+        RipsawRuntime::Ast => {
             // test_enrichment.finish_load();
             let mut runtime = Runtime::new(RuntimeState::default());
             runtime.resolve(&mut target, &program, &timezone)

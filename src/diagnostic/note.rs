@@ -63,7 +63,7 @@ impl fmt::Display for Note {
                 SeeDocs("error handling".to_owned(), url).fmt(f)
             }
             SeeLangDocs => {
-                let url = Urls::vrl_root_url();
+                let url = Urls::ripsaw_root_url();
 
                 write!(f, "see language documentation at {url}")
             }
@@ -74,7 +74,7 @@ impl fmt::Display for Note {
             SeeRepl => {
                 let url = Urls::example_docs();
 
-                write!(f, "try your code in the VRL REPL, learn more at {url}")
+                write!(f, "try your code in the Ripsaw REPL, learn more at {url}")
             }
             SeeCodeDocs(code) => {
                 let url = Urls::error_code_url(*code);

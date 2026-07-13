@@ -4,7 +4,7 @@ use std::collections::BTreeMap;
 use std::fmt::{Debug, Formatter};
 use std::sync::Arc;
 
-/// A container that holds secrets accessible from Vector / VRL.
+/// A container that holds secrets accessible from Vector / Ripsaw.
 #[derive(Clone, Default, PartialEq, Eq, PartialOrd)]
 pub struct Secrets {
     secrets: BTreeMap<String, Arc<str>>,

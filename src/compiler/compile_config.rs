@@ -40,7 +40,7 @@ impl CompileConfig {
             .and_then(|t| t.downcast_mut())
     }
 
-    /// Sets the external context data for VRL functions to use.
+    /// Sets the external context data for Ripsaw functions to use.
     pub fn set_custom<T: 'static>(&mut self, data: T) {
         self.custom.insert(TypeId::of::<T>(), Box::new(data) as _);
     }

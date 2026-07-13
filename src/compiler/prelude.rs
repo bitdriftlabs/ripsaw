@@ -24,7 +24,7 @@ pub use super::{
     function::{self, ArgumentList, Closure, Compiled, Example, FunctionCompileContext, closure},
     state::{self, TypeInfo, TypeState},
     type_def,
-    value::{ValueError, VrlValueArithmetic, VrlValueConvert, kind},
+    value::{RipsawValueArithmetic, RipsawValueConvert, ValueError, kind},
 };
 
 #[cfg(feature = "stdlib-base")]

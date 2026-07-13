@@ -59,7 +59,7 @@ impl Kind {
         self
     }
 
-    /// VRL has an interesting property where accessing an undefined value "upgrades"
+    /// Ripsaw has an interesting property where accessing an undefined value "upgrades"
     /// it to a "null" value.
     /// This should be used in places those implicit upgrades can occur.
     // see: https://github.com/vectordotdev/vector/issues/13594

@@ -1,8 +1,6 @@
 use std::io::Write;
 use std::process::{Command, Stdio};
 
-const BANNER_MARKER: &str = "VECTOR    REMAP    LANGUAGE";
-
 fn run_ripsaw_repl(input: Option<&str>, args: &[&str]) -> String {
     let mut child = Command::new(env!("CARGO_BIN_EXE_ripsaw"))
         .args(args)
@@ -37,31 +35,4 @@ fn run_ripsaw_repl(input: Option<&str>, args: &[&str]) -> String {
 fn test_abs_works() {
     let stdout = run_ripsaw_repl(Some("abs(-1)"), &["-q"]);
     assert_eq!(stdout, "1\n\n");
-}
-
-#[test]
-fn without_quiet_flag_prints_banner() {
-    let stdout = run_ripsaw_repl(None, &[]);
-    assert!(
-        stdout.contains(BANNER_MARKER),
-        "Expected banner to be printed without --quiet flag.\nStdout was:\n{stdout}"
-    );
-}
-
-#[test]
-fn with_quiet_long_flag_suppresses_banner() {
-    let stdout = run_ripsaw_repl(None, &["--quiet"]);
-    assert!(
-        !stdout.contains(BANNER_MARKER),
-        "Expected banner to be suppressed with --quiet flag.\nStdout was:\n{stdout}"
-    );
-}
-
-#[test]
-fn with_quiet_short_flag_suppresses_banner() {
-    let stdout = run_ripsaw_repl(None, &["-q"]);
-    assert!(
-        !stdout.contains(BANNER_MARKER),
-        "Expected banner to be suppressed with -q flag.\nStdout was:\n{stdout}"
-    );
 }

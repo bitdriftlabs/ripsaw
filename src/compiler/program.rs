@@ -24,7 +24,7 @@ impl Program {
         self.expressions.type_info(&self.initial_state)
     }
 
-    /// Get detailed information about the program, as collected by the VRL
+    /// Get detailed information about the program, as collected by the Ripsaw
     /// compiler.
     #[must_use]
     pub fn info(&self) -> &ProgramInfo {

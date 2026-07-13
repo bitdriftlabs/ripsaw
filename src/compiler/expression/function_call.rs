@@ -732,7 +732,7 @@ impl Expression for FunctionCall {
         //     slice(.foo, 1) ?? []
         //
         // Note that this rule doesn't just apply to "any" kind (in fact, "any"
-        // isn't a kind, it's simply a term meaning "all possible VRL values"),
+        // isn't a kind, it's simply a term meaning "all possible Ripsaw values"),
         // but it applies whenever there's an _intersection_ but not an exact
         // _match_ between two types.
         //

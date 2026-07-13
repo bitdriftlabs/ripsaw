@@ -152,7 +152,7 @@ pub fn parse_xml(value: Value, options: ParseOptions) -> Resolved {
     Ok(value)
 }
 
-/// Process an XML `Node` and return a VRL `Value`.
+/// Process an XML `Node` and return a Ripsaw `Value`.
 pub fn process_node(node: Node, config: &ParseXmlConfig) -> Value {
     // Helper to recurse over a `Node`s children, and build an object.
     let recurse = |node: Node| -> ObjectMap {
@@ -175,7 +175,7 @@ pub fn process_node(node: Node, config: &ParseXmlConfig) -> Value {
                 _ => unreachable!("shouldn't be other XML nodes"),
             };
 
-            // Transform the node into a VRL `Value`.
+            // Transform the node into a Ripsaw `Value`.
             let value = process_node(n, config);
 
             // If the key already exists, add it. Otherwise, insert.

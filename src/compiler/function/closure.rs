@@ -3,7 +3,7 @@ use std::collections::BTreeMap;
 use crate::compiler::{
     Context, ExpressionError,
     state::RuntimeState,
-    value::{Kind, VrlValueConvert},
+    value::{Kind, RipsawValueConvert},
 };
 use crate::parser::ast::Ident;
 use crate::value::{

@@ -10,7 +10,7 @@ impl Function for IsNull {
     }
 
     fn usage(&self) -> &'static str {
-        "Check if `value`'s type is `null`. For a more relaxed function, see [`is_nullish`](/docs/reference/vrl/functions#is_nullish)."
+        "Check if `value`'s type is `null`. For a more relaxed function, see `is_nullish`."
     }
 
     fn category(&self) -> &'static str {

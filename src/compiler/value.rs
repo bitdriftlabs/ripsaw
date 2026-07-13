@@ -8,4 +8,4 @@ pub use crate::value::value::{IterItem, ObjectMap};
 pub use error::ValueError;
 pub use kind::{Collection, Field, Index, Kind};
 
-pub use self::{arithmetic::VrlValueArithmetic, convert::VrlValueConvert};
+pub use self::{arithmetic::RipsawValueArithmetic, convert::RipsawValueConvert};

@@ -86,9 +86,12 @@ impl DiagnosticMessage for ExpressionError {
                 Label::context("handle the error case to ensure runtime success", span),
             ],
             Missing { span, feature } => vec![
-                Label::primary("expression type is disabled in this version of vrl", span),
+                Label::primary(
+                    "expression type is disabled in this version of ripsaw",
+                    span,
+                ),
                 Label::context(
-                    format!("build vrl using the `{feature}` feature to enable it"),
+                    format!("build ripsaw using the `{feature}` feature to enable it"),
                     span,
                 ),
             ],

@@ -1,6 +1,6 @@
 # Fix Me
 
-This directory contains tests that show a bug in VRL that needs to be resolved.
+This directory contains tests that show a bug in Ripsaw that needs to be resolved.
 
 The first line in these tests should start with:
 

@@ -241,7 +241,7 @@ fn verify_overwritable(
         let parent_kind = root_kind.at_path(&path);
 
         // TODO: This assumes that the Display impl of `OwnedSegment` exactly matches the
-        // VRL source code, which is not always the same. `saturating_sub` is used to guard
+        // Ripsaw source code, which is not always the same. `saturating_sub` is used to guard
         // against panics here, but the spans can be inaccurate in some cases. A different
         // approach should be taken here
         // https://github.com/vectordotdev/vrl/issues/206

@@ -11,7 +11,7 @@ use crate::compiler::TimeZone;
 use crate::compiler::runtime::Runtime;
 use crate::compiler::state::RuntimeState;
 use crate::compiler::{
-    CompilationResult, CompileConfig, Function, Program, Target, TypeState, VrlRuntime,
+    CompilationResult, CompileConfig, Function, Program, RipsawRuntime, Target, TypeState,
     compile_with_state,
 };
 use crate::diagnostic::Formatter;
@@ -24,9 +24,9 @@ use super::Error;
 use super::repl;
 
 #[derive(Parser, Debug)]
-#[command(name = "VRL", about = "Vector Remap Language CLI")]
+#[command(name = "Ripsaw", about = "Ripsaw CLI")]
 pub struct Opts {
-    /// The VRL program to execute. The program ".foo = true", for example, sets the event object's
+    /// The Ripsaw program to execute. The program ".foo = true", for example, sets the event object's
     /// `foo` field to `true`.
     #[arg(id = "PROGRAM")]
     program: Option<String>,
@@ -35,7 +35,7 @@ pub struct Opts {
     #[arg(short, long = "input")]
     input_file: Option<PathBuf>,
 
-    /// The file containing the VRL program to execute. This can be used instead of `PROGRAM`.
+    /// The file containing the Ripsaw program to execute. This can be used instead of `PROGRAM`.
     #[arg(short, long = "program", conflicts_with("PROGRAM"))]
     program_file: Option<PathBuf>,
 
@@ -52,9 +52,9 @@ pub struct Opts {
     #[arg(short = 'z', long)]
     timezone: Option<String>,
 
-    /// Should we use the VM to evaluate the VRL
+    /// Should we use the VM to evaluate the Ripsaw
     #[arg(short, long = "runtime", default_value_t)]
-    runtime: VrlRuntime,
+    runtime: RipsawRuntime,
 
     // Should the CLI emit warnings
     #[arg(long = "print-warnings")]
@@ -91,7 +91,7 @@ impl Opts {
             "" => Ok(vec![Value::Object(BTreeMap::default())]),
             _ => input
                 .lines()
-                .map(|line| Ok(serde_to_vrl(serde_json::from_str(line)?)))
+                .map(|line| Ok(serde_to_runtime(serde_json::from_str(line)?)))
                 .collect::<Result<Vec<Value>, Error>>(),
         }
     }
@@ -195,7 +195,7 @@ fn repl(
     quiet: bool,
     objects: Vec<Value>,
     timezone: TimeZone,
-    vrl_runtime: VrlRuntime,
+    runtime: RipsawRuntime,
     stdlib_functions: Vec<Box<dyn Function>>,
 ) -> Result<(), Error> {
     use crate::compiler::TargetValue;
@@ -209,7 +209,7 @@ fn repl(
         })
         .collect();
 
-    repl::run(quiet, objects, timezone, vrl_runtime, stdlib_functions).map_err(Into::into)
+    repl::run(quiet, objects, timezone, runtime, stdlib_functions).map_err(Into::into)
 }
 
 fn execute(
@@ -217,30 +217,34 @@ fn execute(
     program: &Program,
     timezone: TimeZone,
     mut runtime: Runtime,
-    vrl_runtime: VrlRuntime,
+    script_runtime: RipsawRuntime,
 ) -> Result<Value, Error> {
-    match vrl_runtime {
-        VrlRuntime::Ast => runtime
+    match script_runtime {
+        RipsawRuntime::Ast => runtime
             .resolve(object, program, &timezone)
             .map_err(Error::Runtime),
     }
 }
 
-fn serde_to_vrl(value: serde_json::Value) -> Value {
+fn serde_to_runtime(value: serde_json::Value) -> Value {
     use serde_json::Value as JsonValue;
 
     match value {
         JsonValue::Null => crate::value::Value::Null,
         JsonValue::Object(v) => v
             .into_iter()
-            .map(|(k, v)| (k.into(), serde_to_vrl(v)))
+            .map(|(k, v)| (k.into(), serde_to_runtime(v)))
             .collect::<BTreeMap<_, _>>()
             .into(),
         JsonValue::Bool(v) => v.into(),
         JsonValue::Number(v) if v.is_f64() => Value::from_f64_or_zero(v.as_f64().unwrap()),
         JsonValue::Number(v) => v.as_i64().unwrap_or(i64::MAX).into(),
         JsonValue::String(v) => v.into(),
-        JsonValue::Array(v) => v.into_iter().map(serde_to_vrl).collect::<Vec<_>>().into(),
+        JsonValue::Array(v) => v
+            .into_iter()
+            .map(serde_to_runtime)
+            .collect::<Vec<_>>()
+            .into(),
     }
 }
 

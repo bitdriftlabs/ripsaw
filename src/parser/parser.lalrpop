@@ -88,7 +88,7 @@ extern {
 // parser entry points
 // -----------------------------------------------------------------------------
 
-// The main entrypoint into a VRL program.
+// The main entrypoint into a Ripsaw program.
 //
 // A program consists of one or more expressions.
 pub Program: Program = NonterminalNewline* <RootExprs> => Program(<>);

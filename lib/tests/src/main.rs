@@ -2,7 +2,7 @@ use chrono_tz::Tz;
 use clap::Parser;
 use glob::glob;
 
-use ripsaw::compiler::{CompileConfig, TimeZone, VrlRuntime};
+use ripsaw::compiler::{CompileConfig, RipsawRuntime, TimeZone};
 use ripsaw::test::{Test, TestConfig, get_tests_from_functions, run_tests, test_dir};
 
 #[cfg(not(target_env = "msvc"))]
@@ -36,9 +36,9 @@ pub struct Cmd {
     #[clap(short = 'z', long)]
     timezone: Option<String>,
 
-    /// Should we use the VM to evaluate the VRL
+    /// Should we use the VM to evaluate the Ripsaw
     #[clap(short, long = "runtime", default_value_t)]
-    runtime: VrlRuntime,
+    runtime: RipsawRuntime,
 }
 
 impl Cmd {

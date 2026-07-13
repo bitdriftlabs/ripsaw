@@ -1,9 +1,9 @@
 use serde::{Deserialize, Serialize};
 use strum_macros::AsRefStr;
 
-/// Standard VRL function categories.
+/// Standard Ripsaw function categories.
 ///
-/// These categories are used to organize VRL standard library functions
+/// These categories are used to organize Ripsaw standard library functions
 /// in documentation and tooling.
 #[derive(
     Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord, Serialize, Deserialize, AsRefStr,

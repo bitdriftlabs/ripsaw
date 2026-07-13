@@ -4,7 +4,7 @@ use crate::compiler::{
     Context, Expression, Span, TypeDef,
     expression::{ExpressionError, Resolved},
     state::{TypeInfo, TypeState},
-    value::{Kind, VrlValueConvert},
+    value::{Kind, RipsawValueConvert},
 };
 use crate::diagnostic::{DiagnosticMessage, Label, Note, Urls};
 use crate::parser::ast::Node;
