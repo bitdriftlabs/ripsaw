@@ -84,12 +84,12 @@ for a fully formed log message sample.",
             example! {
                 title: "Assertion (false) - with message",
                 source: r#"assert!("foo" == "bar", message: "\"foo\" must be \"foo\"!")"#,
-                result: Err(r#"function call error for "assert" at (0:60): "foo" must be "foo"!"#),
+                result: Err(r#""foo" must be "foo"!"#),
             },
             example! {
                 title: "Assertion (false) - simple",
                 source: "assert!(false)",
-                result: Err(r#"function call error for "assert" at (0:14): assertion failed"#),
+                result: Err(r#"assertion failed"#),
             },
         ]
     }
