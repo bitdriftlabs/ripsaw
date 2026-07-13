@@ -148,7 +148,7 @@ impl DiagnosticMessage for Error {
                 Note::CoerceValue,
                 Note::SeeDocs(
                     "type coercion".to_owned(),
-                    Urls::func_docs("#coerce-functions"),
+                    Urls::func_docs("coerce-functions"),
                 ),
             ],
         }

@@ -1158,7 +1158,7 @@ impl DiagnosticMessage for FunctionCallError {
         match self {
             WrongNumberOfArgs { .. } => vec![Note::SeeDocs(
                 "function arguments".to_owned(),
-                Urls::expression_docs_url("#arguments"),
+                Urls::expression_docs_url("arguments"),
             )],
             FallibleArgument { .. } => vec![Note::SeeErrorDocs],
             InvalidArgumentKind(context) => {

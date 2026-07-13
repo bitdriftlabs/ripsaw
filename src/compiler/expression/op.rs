@@ -420,7 +420,7 @@ impl DiagnosticMessage for Error {
         match self {
             ChainedComparison { .. } => vec![Note::SeeDocs(
                 "comparisons".to_owned(),
-                Urls::expression_docs_url("#comparison"),
+                Urls::expression_docs_url("comparison"),
             )],
             Expr(err) => err.notes(),
             _ => vec![],

@@ -149,7 +149,7 @@ impl DiagnosticMessage for Error {
                 Note::CoerceValue,
                 Note::SeeDocs(
                     "if expressions".to_owned(),
-                    Urls::expression_docs_url("#if"),
+                    Urls::expression_docs_url("if"),
                 ),
             ],
             Fallible { notes, .. } => notes.clone(),
