@@ -10,7 +10,7 @@ of Ripsaw itself, or the language in which Ripsaw is built (Rust).
 ## Adding Tests
 
 New tests are added in the [`tests`](./tests) sub-directory. There's an
-[`example.vrl`](./tests/example.vrl) file to show the general structure of a
+[`example.vrl`](./tests/example.ripsaw) file to show the general structure of a
 test case.
 
 Each directory inside the test directory has its own documentation to explain
