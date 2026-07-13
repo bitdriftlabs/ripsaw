@@ -3,7 +3,7 @@ use clap::Parser;
 use glob::glob;
 
 use ripsaw::compiler::{CompileConfig, TimeZone, VrlRuntime};
-use ripsaw::test::{get_tests_from_functions, run_tests, test_dir, Test, TestConfig};
+use ripsaw::test::{Test, TestConfig, get_tests_from_functions, run_tests, test_dir};
 
 #[cfg(not(target_env = "msvc"))]
 #[global_allocator]
@@ -53,10 +53,10 @@ impl Cmd {
 
 fn should_run(name: &str, pat: &Option<String>) -> bool {
     // name.contains("truncate")
-    if let Some(pat) = pat {
-        if !name.contains(pat) {
-            return false;
-        }
+    if let Some(pat) = pat
+        && !name.contains(pat)
+    {
+        return false;
     }
     true
 }

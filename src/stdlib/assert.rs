@@ -89,7 +89,7 @@ for a fully formed log message sample.",
             example! {
                 title: "Assertion (false) - simple",
                 source: "assert!(false)",
-                result: Err(r#"assertion failed"#),
+                result: Err(r"assertion failed"),
             },
         ]
     }

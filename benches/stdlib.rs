@@ -2,10 +2,10 @@ use chrono::{DateTime, Datelike, TimeZone, Utc};
 use criterion::{Criterion, criterion_group, criterion_main};
 use regex::Regex;
 
-use std::env;
-use std::path::PathBuf;
 use ripsaw::compiler::prelude::*;
 use ripsaw::{bench_function, btreemap, func_args, value};
+use std::env;
+use std::path::PathBuf;
 
 use crate::value::Value;
 
