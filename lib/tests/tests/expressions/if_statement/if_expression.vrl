@@ -4,11 +4,9 @@ result = if true {
   "string"
 }
 assert!(result == "string")
-assert!(type_def(result) == {"bytes": true, "null": true})
 
 
 result = if false {
   "string"
 }
 assert!(result == null)
-assert!(type_def(result) == {"bytes": true, "null": true})

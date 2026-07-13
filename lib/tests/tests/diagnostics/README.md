@@ -19,5 +19,4 @@ error: unnecessary error assignment
   │
   = hint: assign to "ok", without assigning to "err"
   = see language documentation at: https://vector.dev/docs/reference/vrl/
-  = try your code in the VRL REPL, learn more at https://vrl.dev/examples
 ```

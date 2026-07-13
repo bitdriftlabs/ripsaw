@@ -9,9 +9,8 @@
 #   │ │   this error assignment is unnecessary
 #   │ use: ok = 5
 #   │
-#   = see documentation about error handling at https://errors.vrl.dev/#handling
-#   = learn more about error code 104 at https://errors.vrl.dev/104
-#   = see language documentation at https://vrl.dev
-#   = try your code in the VRL REPL, learn more at https://vrl.dev/examples
+#   = see documentation about error handling at https://docs.bitdrift.io/product/workflows/scripting/errors#error-handling
+#   = learn more about error code 104 at https://docs.bitdrift.io/product/workflows/scripting/errors#104
+#   = see language documentation at https://docs.bitdrift.io/product/workflows/scripting/language
 
 ok, err = 5;

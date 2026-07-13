@@ -3,15 +3,14 @@
 # error[E100]: unhandled error
 #   ┌─ :2:1
 #   │
-# 2 │ parse_json("true")
-#   │ ^^^^^^^^^^^^^^^^^^
+# 2 │ to_int("true")
+#   │ ^^^^^^^^^^^^^^
 #   │ │
 #   │ expression can result in runtime error
 #   │ handle the error case to ensure runtime success
 #   │
-#   = see documentation about error handling at https://errors.vrl.dev/#handling
-#   = learn more about error code 100 at https://errors.vrl.dev/100
-#   = see language documentation at https://vrl.dev
-#   = try your code in the VRL REPL, learn more at https://vrl.dev/examples
+#   = see documentation about error handling at https://docs.bitdrift.io/product/workflows/scripting/errors#error-handling
+#   = learn more about error code 100 at https://docs.bitdrift.io/product/workflows/scripting/errors#100
+#   = see language documentation at https://docs.bitdrift.io/product/workflows/scripting/language
 
-parse_json("true")
+to_int("true")

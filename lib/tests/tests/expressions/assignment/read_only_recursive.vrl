@@ -6,7 +6,6 @@
 # 2 │ .read_only = 5
 #   │ ^^^^^^^^^^^^ mutation of read-only value
 #   │
-#   = see language documentation at https://vrl.dev
-#   = try your code in the VRL REPL, learn more at https://vrl.dev/examples
+#   = see language documentation at https://docs.bitdrift.io/product/workflows/scripting/language
 
 .read_only = 5

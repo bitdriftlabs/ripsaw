@@ -6,8 +6,7 @@
 # 2 │ "foo\xbar"
 #   │      ^ invalid escape character: x
 #   │
-#   = see language documentation at https://vrl.dev
-#   = try your code in the VRL REPL, learn more at https://vrl.dev/examples
+#   = see language documentation at https://docs.bitdrift.io/product/workflows/scripting/language
 
 "foo\xbar"
 "foo\\bar"

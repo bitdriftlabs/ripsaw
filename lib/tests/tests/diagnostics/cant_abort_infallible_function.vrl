@@ -4,13 +4,12 @@
 # warning[E620]: can't abort infallible function
 #   ┌─ :2:1
 #   │
-# 2 │ now!()
+# 2 │ abs!(1)
 #   │ ^^^- remove this abort (!) instruction
 #   │ │
 #   │ this function can't fail
 #   │
-#   = see documentation about error handling at https://errors.vrl.dev/#handling
-#   = see language documentation at https://vrl.dev
-#   = try your code in the VRL REPL, learn more at https://vrl.dev/examples
+#   = see documentation about error handling at https://docs.bitdrift.io/product/workflows/scripting/errors#error-handling
+#   = see language documentation at https://docs.bitdrift.io/product/workflows/scripting/language
 
-now!()
+abs!(1)

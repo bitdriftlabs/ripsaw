@@ -7,10 +7,9 @@
 #   │ ^^^^^^^^^^^^^^^^
 #   │ │
 #   │ undefined function
-#   │ did you mean "parse_duration"?
+#   │ did you mean "downcase"?
 #   │
-#   = learn more about error code 105 at https://errors.vrl.dev/105
-#   = see language documentation at https://vrl.dev
-#   = try your code in the VRL REPL, learn more at https://vrl.dev/examples
+#   = learn more about error code 105 at https://docs.bitdrift.io/product/workflows/scripting/errors#105
+#   = see language documentation at https://docs.bitdrift.io/product/workflows/scripting/language
 
 unknown_function(.foo, .bar)

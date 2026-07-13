@@ -79,18 +79,7 @@
 #     "can't divide type regex by array",
 #     "can't divide type regex by object",
 #     "can't divide type regex by regex",
-#     "can't divide type regex by timestamp",
-#
-#     "can't divide type timestamp by string",
-#     "can't divide type timestamp by integer",
-#     "can't divide type timestamp by float",
-#     "can't divide type timestamp by boolean",
-#     "can't divide type timestamp by boolean",
-#     "can't divide type timestamp by null",
-#     "can't divide type timestamp by array",
-#     "can't divide type timestamp by object",
-#     "can't divide type timestamp by regex",
-#     "can't divide type timestamp by timestamp"
+#     "can't divide type regex by timestamp"
 # ]
 
 _ok, err1 = 1 / true
@@ -99,7 +88,7 @@ _ok, err3 = 1 / null
 _ok, err4 = 1 / []
 _ok, err5 = 1 / {}
 _ok, err6 = 1 / r'foo'
-_ok, err7 = 1 / now()
+_ok, err7 = 1 / t'2023-05-04T22:22:22.234142Z'
 
 integer_errs = [err1, err2, err3, err4, err5, err6, err7]
 
@@ -110,7 +99,7 @@ _ok, err4 = 1.0 / null
 _ok, err5 = 1.0 / []
 _ok, err6 = 1.0 / {}
 _ok, err7 = 1.0 / r'foo'
-_ok, err8 = 1.0 / now()
+_ok, err8 = 1.0 / t'2023-05-04T22:22:22.234142Z'
 
 float_errs = [err1, err2, err3, err4, err5, err6, err7, err8]
 
@@ -122,7 +111,7 @@ _ok, err5 = "foo" / null
 _ok, err6 = "foo" / []
 _ok, err7 = "foo" / {}
 _ok, err8 = "foo" / r'foo'
-_ok, err9 = "foo" / now()
+_ok, err9 = "foo" / t'2023-05-04T22:22:22.234142Z'
 
 string_errs = [err1, err2, err3, err4, err5, err6, err7, err8, err9]
 
@@ -135,7 +124,7 @@ _ok, err6  = true / null
 _ok, err7  = true / []
 _ok, err8  = true / {}
 _ok, err9  = true / r'foo'
-_ok, err10 = true / now()
+_ok, err10 = true / t'2023-05-04T22:22:22.234142Z'
 
 bool_errs = [err1, err2, err3, err4, err5, err6, err7, err8, err9, err10]
 
@@ -148,7 +137,7 @@ _ok, err6  = null / null
 _ok, err7  = null / []
 _ok, err8  = null / {}
 _ok, err9  = null / r'foo'
-_ok, err10 = null / now()
+_ok, err10 = null / t'2023-05-04T22:22:22.234142Z'
 
 null_errs = [err1, err2, err3, err4, err5, err6, err7, err8, err9, err10]
 
@@ -161,7 +150,7 @@ _ok, err6  = [] / null
 _ok, err7  = [] / []
 _ok, err8  = [] / {}
 _ok, err9  = [] / r'foo'
-_ok, err10 = [] / now()
+_ok, err10 = [] / t'2023-05-04T22:22:22.234142Z'
 
 array_errs = [err1, err2, err3, err4, err5, err6, err7, err8, err9, err10]
 
@@ -174,7 +163,7 @@ _ok, err6  = {} / null
 _ok, err7  = {} / []
 _ok, err8  = {} / {}
 _ok, err9  = {} / r'foo'
-_ok, err10 = {} / now()
+_ok, err10 = {} / t'2023-05-04T22:22:22.234142Z'
 
 object_errs = [err1, err2, err3, err4, err5, err6, err7, err8, err9, err10]
 
@@ -187,22 +176,9 @@ _ok, err6  = r'' / null
 _ok, err7  = r'' / []
 _ok, err8  = r'' / {}
 _ok, err9  = r'' / r'foo'
-_ok, err10 = r'' / now()
+_ok, err10 = r'' / t'2023-05-04T22:22:22.234142Z'
 
 regex_errs = [err1, err2, err3, err4, err5, err6, err7, err8, err9, err10]
-
-_ok, err1  = from_unix_timestamp(0) / "foo"
-_ok, err2  = from_unix_timestamp(0) / 1
-_ok, err3  = from_unix_timestamp(0) / 1.0
-_ok, err4  = from_unix_timestamp(0) / true
-_ok, err5  = from_unix_timestamp(0) / false
-_ok, err6  = from_unix_timestamp(0) / null
-_ok, err7  = from_unix_timestamp(0) / []
-_ok, err8  = from_unix_timestamp(0) / {}
-_ok, err9  = from_unix_timestamp(0) / r'foo'
-_ok, err10 = from_unix_timestamp(0) / now()
-
-timestamp_errs = [err1, err2, err3, err4, err5, err6, err7, err8, err9, err10]
 
 errs = [
     integer_errs,
@@ -213,7 +189,6 @@ errs = [
     array_errs,
     object_errs,
     regex_errs,
-    timestamp_errs,
 ]
 
 flatten(errs)

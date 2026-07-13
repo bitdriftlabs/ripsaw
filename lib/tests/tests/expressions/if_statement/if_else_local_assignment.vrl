@@ -7,7 +7,6 @@ if true {
   a = "string"
 }
 assert!(a == 0.0)
-assert!(type_def(a) == {"float": true, "bytes": true})
 
 a = 5
 if false {
@@ -16,4 +15,3 @@ if false {
   a = "string"
 }
 assert!(a == "string")
-assert!(type_def(a) == {"float": true, "bytes": true})

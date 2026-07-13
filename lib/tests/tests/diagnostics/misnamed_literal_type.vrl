@@ -9,8 +9,7 @@
 #   │ undefined variable
 #   │ did you mean "null"?
 #   │
-#   = see language documentation at https://vrl.dev
-#   = try your code in the VRL REPL, learn more at https://vrl.dev/examples
+#   = see language documentation at https://docs.bitdrift.io/product/workflows/scripting/language
 #
 # error[E701]: call to undefined variable
 #   ┌─ :3:1
@@ -21,8 +20,7 @@
 #   │ undefined variable
 #   │ did you mean "true"?
 #   │
-#   = see language documentation at https://vrl.dev
-#   = try your code in the VRL REPL, learn more at https://vrl.dev/examples
+#   = see language documentation at https://docs.bitdrift.io/product/workflows/scripting/language
 #
 # error[E701]: call to undefined variable
 #   ┌─ :4:1
@@ -33,8 +31,7 @@
 #   │ undefined variable
 #   │ did you mean "false"?
 #   │
-#   = see language documentation at https://vrl.dev
-#   = try your code in the VRL REPL, learn more at https://vrl.dev/examples
+#   = see language documentation at https://docs.bitdrift.io/product/workflows/scripting/language
 
 nil
 tru

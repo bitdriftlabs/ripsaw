@@ -9,8 +9,7 @@
 #   │ undefined variable
 #   │ did you mean "known_variable"?
 #   │
-#   = see language documentation at https://vrl.dev
-#   = try your code in the VRL REPL, learn more at https://vrl.dev/examples
+#   = see language documentation at https://docs.bitdrift.io/product/workflows/scripting/language
 
 known_variable = true
 unknown_variable

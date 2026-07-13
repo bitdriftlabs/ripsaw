@@ -11,3 +11,4 @@ build:
 .PHONY: test
 test:
 	@cargo nextest run --workspace
+	@cd lib/tests && cargo run

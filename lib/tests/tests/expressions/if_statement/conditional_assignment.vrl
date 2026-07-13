@@ -1,9 +1,4 @@
-# result: {
-#    "object": {
-#       "x": { "boolean": true, "undefined": true },
-#       "y": { "bytes": true, "undefined": true }
-#    }
-# }
+# result: { "x": true }
 
 . = {}
 _result = if true {
@@ -11,4 +6,4 @@ _result = if true {
 } else {
    .y = "hi"
 }
-type_def(.)
+.

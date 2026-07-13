@@ -1,7 +1,7 @@
-# result: {"x": [null], "typedef": {"array": {"0": {"null": true}}}}
+# result: {"x": [null]}
 
 . = {}
 
 # x is an array of size one that is assigned an undefined value that is upgraded to null
 x = [.x]
-{"x": x, "typedef": type_def(x)}
+{"x": x}

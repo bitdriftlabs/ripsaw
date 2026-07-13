@@ -102,7 +102,7 @@ _ok, err4 = 1 - null
 _ok, err5 = 1 - []
 _ok, err6 = 1 - {}
 _ok, err7 = 1 - r'foo'
-_ok, err8 = 1 - now()
+_ok, err8 = 1 - t'2023-05-04T22:22:22.234142Z'
 
 integer_errs = [err1, err2, err3, err4, err5, err6, err7, err8]
 
@@ -113,7 +113,7 @@ _ok, err4 = 1.0 - null
 _ok, err5 = 1.0 - []
 _ok, err6 = 1.0 - {}
 _ok, err7 = 1.0 - r'foo'
-_ok, err8 = 1.0 - now()
+_ok, err8 = 1.0 - t'2023-05-04T22:22:22.234142Z'
 
 float_errs = [err1, err2, err3, err4, err5, err6, err7, err8]
 
@@ -126,7 +126,7 @@ _ok, err6  = "foo" - null
 _ok, err7  = "foo" - []
 _ok, err8  = "foo" - {}
 _ok, err9  = "foo" - r'foo'
-_ok, err10 = "foo" - now()
+_ok, err10 = "foo" - t'2023-05-04T22:22:22.234142Z'
 
 string_errs = [err1, err2, err3, err4, err5, err6, err7, err8, err9, err10]
 
@@ -139,7 +139,7 @@ _ok, err6  = true - null
 _ok, err7  = true - []
 _ok, err8  = true - {}
 _ok, err9  = true - r'foo'
-_ok, err10 = true - now()
+_ok, err10 = true - t'2023-05-04T22:22:22.234142Z'
 
 bool_errs = [err1, err2, err3, err4, err5, err6, err7, err8, err9, err10]
 
@@ -152,7 +152,7 @@ _ok, err6  = null - null
 _ok, err7  = null - []
 _ok, err8  = null - {}
 _ok, err9  = null - r'foo'
-_ok, err10 = null - now()
+_ok, err10 = null - t'2023-05-04T22:22:22.234142Z'
 
 null_errs = [err1, err2, err3, err4, err5, err6, err7, err8, err9, err10]
 
@@ -165,7 +165,7 @@ _ok, err6  = [] - null
 _ok, err7  = [] - []
 _ok, err8  = [] - {}
 _ok, err9  = [] - r'foo'
-_ok, err10 = [] - now()
+_ok, err10 = [] - t'2023-05-04T22:22:22.234142Z'
 
 array_errs = [err1, err2, err3, err4, err5, err6, err7, err8, err9, err10]
 
@@ -178,7 +178,7 @@ _ok, err6  = {} - null
 _ok, err7  = {} - []
 _ok, err8  = {} - {}
 _ok, err9  = {} - r'foo'
-_ok, err10 = {} - now()
+_ok, err10 = {} - t'2023-05-04T22:22:22.234142Z'
 
 object_errs = [err1, err2, err3, err4, err5, err6, err7, err8, err9, err10]
 
@@ -191,20 +191,20 @@ _ok, err6  = r'' - null
 _ok, err7  = r'' - []
 _ok, err8  = r'' - {}
 _ok, err9  = r'' - r'foo'
-_ok, err10 = r'' - now()
+_ok, err10 = r'' - t'2023-05-04T22:22:22.234142Z'
 
 regex_errs = [err1, err2, err3, err4, err5, err6, err7, err8, err9, err10]
 
-_ok, err1  = from_unix_timestamp(0) - "foo"
-_ok, err2  = from_unix_timestamp(0) - 1
-_ok, err3  = from_unix_timestamp(0) - 1.0
-_ok, err4  = from_unix_timestamp(0) - true
-_ok, err5  = from_unix_timestamp(0) - false
-_ok, err6  = from_unix_timestamp(0) - null
-_ok, err7  = from_unix_timestamp(0) - []
-_ok, err8  = from_unix_timestamp(0) - {}
-_ok, err9  = from_unix_timestamp(0) - r'foo'
-_ok, err10 = from_unix_timestamp(0) - now()
+_ok, err1  = t'2023-05-04T22:22:22.234142Z' - "foo"
+_ok, err2  = t'2023-05-04T22:22:22.234142Z' - 1
+_ok, err3  = t'2023-05-04T22:22:22.234142Z' - 1.0
+_ok, err4  = t'2023-05-04T22:22:22.234142Z' - true
+_ok, err5  = t'2023-05-04T22:22:22.234142Z' - false
+_ok, err6  = t'2023-05-04T22:22:22.234142Z' - null
+_ok, err7  = t'2023-05-04T22:22:22.234142Z' - []
+_ok, err8  = t'2023-05-04T22:22:22.234142Z' - {}
+_ok, err9  = t'2023-05-04T22:22:22.234142Z' - r'foo'
+_ok, err10 = t'2023-05-04T22:22:22.234142Z' - t'2023-05-04T22:22:22.234142Z'
 
 timestamp_errs = [err1, err2, err3, err4, err5, err6, err7, err8, err9, err10]
 

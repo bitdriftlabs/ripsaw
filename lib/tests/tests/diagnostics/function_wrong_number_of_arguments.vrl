@@ -9,9 +9,8 @@
 #   │           too many function arguments
 #   │           this function takes a maximum of 1 argument
 #   │
-#   = see documentation about function arguments at https://vrl.dev/expressions/#arguments
-#   = learn more about error code 106 at https://errors.vrl.dev/106
-#   = see language documentation at https://vrl.dev
-#   = try your code in the VRL REPL, learn more at https://vrl.dev/examples
+#   = see documentation about function arguments at https://docs.bitdrift.io/product/workflows/scripting/language#arguments
+#   = learn more about error code 106 at https://docs.bitdrift.io/product/workflows/scripting/errors#106
+#   = see language documentation at https://docs.bitdrift.io/product/workflows/scripting/language
 
 to_string("foo", "bar")

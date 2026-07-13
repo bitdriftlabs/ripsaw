@@ -5,11 +5,9 @@ if false {
   a = "string"
 }
 assert!(a == 5)
-assert!(type_def(a) == {"integer": true, "bytes": true})
 
 a = 5
 if true {
   a = "string"
 }
 assert!(a == "string")
-assert!(type_def(a) == {"integer": true, "bytes": true})

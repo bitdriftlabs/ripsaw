@@ -1,12 +1,12 @@
 # result: {
 #   "x": {},
-#   "x_type": { "object": {"foo": {"boolean": true, "undefined": true }}},
-#   "y": { "foo": true },
-#   "y_type": { "object": {"foo": {"boolean": true, "undefined": true }}},
+#   "y": {
+#     "foo": true
+#   },
 #   "x2": {},
-#   "x2_type": { "object": {"foo": {"boolean": true, "undefined": true }}},
-#   "y2": { "foo": true },
-#   "y2_type": { "object": {"foo": {"boolean": true, "undefined": true }}}
+#   "y2": {
+#     "foo": true
+#   }
 # }
 
 .x = if true {
@@ -16,7 +16,6 @@
     "foo": true
   }
 }
-.x_type = type_def(.x)
 
 .y = if false {
    {}
@@ -25,7 +24,6 @@
     "foo": true
   }
 }
-.y_type = type_def(.x)
 
 
 .x2 = if false {
@@ -35,7 +33,6 @@
 } else {
   {}
 }
-.x2_type = type_def(.x)
 
 .y2 = if true {
    {
@@ -44,6 +41,5 @@
 } else {
   {}
 }
-.y2_type = type_def(.x)
 
 .
