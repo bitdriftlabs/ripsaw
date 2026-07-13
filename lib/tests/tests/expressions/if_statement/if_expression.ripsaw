@@ -1,0 +1,12 @@
+# result: true
+
+result = if true {
+  "string"
+}
+assert!(result == "string")
+
+
+result = if false {
+  "string"
+}
+assert!(result == null)

@@ -31,7 +31,7 @@ impl Deref for OwnedValueOrRef<'_> {
     }
 }
 
-/// Any target object you want to remap using VRL has to implement this trait.
+/// Any target object you want to remap using Ripsaw has to implement this trait.
 pub trait Target: std::fmt::Debug + SecretTarget {
     /// Insert a given [`Value`] in the provided [`Target`].
     ///

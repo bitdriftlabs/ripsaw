@@ -326,15 +326,15 @@ impl DiagnosticMessage for Error {
         match &self.variant {
             InvalidRegex(_) => vec![Note::SeeDocs(
                 "regular expressions".to_owned(),
-                Urls::expression_docs_url("#regular-expression"),
+                Urls::expression_docs_url("regular-expression"),
             )],
             InvalidTimestamp(_) => vec![Note::SeeDocs(
                 "timestamps".to_owned(),
-                Urls::expression_docs_url("#timestamp"),
+                Urls::expression_docs_url("timestamp"),
             )],
             NanFloat => vec![Note::SeeDocs(
                 "floats".to_owned(),
-                Urls::expression_docs_url("#float"),
+                Urls::expression_docs_url("float"),
             )],
         }
     }

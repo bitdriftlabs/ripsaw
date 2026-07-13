@@ -1,15 +1,12 @@
 [package]
-name = "vrl"
-version = "0.31.0"
-authors = ["Vector Contributors <vector@datadoghq.com>"]
+name = "ripsaw"
+version = "1.0.0"
 edition = "2024"
-license = "MPL-2.0"
-description = "Vector Remap Language"
-homepage = "https://vrl.dev/"
-repository = "https://github.com/vectordotdev/vrl"
+license-file = "./LICENSE"
+description = "ripsaw scripting language"
+repository = "https://github.com/bitdriftlabs/ripsaw"
 readme = "README.md"
-keywords = ["vector", "datadog", "compiler"]
-categories = ["compilers"]
+publish = false
 rust-version = "1.88" # msrv
 
 [workspace]
@@ -18,7 +15,6 @@ members = [
   "lib/cli",
   "lib/tests",
   # "lib/fuzz",
-  "lib/docs",
 ]
 
 [workspace.dependencies]
@@ -39,7 +35,7 @@ string_path = []
 
 # Features that aren't used as often (default off)
 cli = ["stdlib", "dep:clap", "dep:serde_json", "dep:thiserror", "dep:exitcode", "dep:webbrowser", "dep:rustyline", "dep:prettytable-rs"]
-test_framework = ["compiler", "dep:prettydiff", "dep:serde_json", "dep:ansi_term"]
+test_framework = ["compiler", "dep:prettydiff", "dep:serde_json", "dep:ansiterm"]
 arbitrary = ["dep:quickcheck", "dep:arbitrary"]
 lua = ["dep:mlua"]
 proptest = ["dep:proptest", "dep:proptest-derive"]
@@ -77,7 +73,7 @@ stdlib-base = [
 cfg-if = "1"
 
 # Optional dependencies
-ansi_term = { version = "0.12", optional = true }
+ansiterm = { version = "0.12", optional = true }
 arbitrary = { version = "1", optional = true, features = ["derive"] }
 base16 = { version = "0.2", optional = true }
 base62 = { version = "2.2.1", optional = true }
@@ -177,7 +173,7 @@ tracing-test = { version = "0.2", default-features = false }
 mlua = { version = "0.10", default-features = false, features = ["lua54", "send", "vendored"] }
 quickcheck = { version = "1" }
 regex = { version = "1", default-features = false, features = ["std", "perf", "unicode"] }
-paste = { version = "1", default-features = false }
+pastey = { version = "0.2.3", default-features = false }
 proptest = { version = "1" }
 proptest-derive = { version = "0.6" }
 
@@ -188,10 +184,6 @@ ua-parser = { version = "0.2" }
 
 [[bench]]
 name = "kind"
-harness = false
-
-[[bench]]
-name = "keyvalue"
 harness = false
 
 [[bench]]

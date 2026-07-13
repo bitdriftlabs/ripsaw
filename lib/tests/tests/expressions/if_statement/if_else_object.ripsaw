@@ -1,0 +1,45 @@
+# result: {
+#   "x": {},
+#   "y": {
+#     "foo": true
+#   },
+#   "x2": {},
+#   "y2": {
+#     "foo": true
+#   }
+# }
+
+.x = if true {
+   {}
+} else {
+  {
+    "foo": true
+  }
+}
+
+.y = if false {
+   {}
+} else {
+  {
+    "foo": true
+  }
+}
+
+
+.x2 = if false {
+   {
+     "foo": true
+   }
+} else {
+  {}
+}
+
+.y2 = if true {
+   {
+     "foo": true
+   }
+} else {
+  {}
+}
+
+.

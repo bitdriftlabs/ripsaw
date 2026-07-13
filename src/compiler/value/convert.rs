@@ -17,12 +17,12 @@ use crate::compiler::{
 macro_rules! expr {
     ($($v:tt)*) => {{
         let value = $crate::value!($($v)*);
-        $crate::compiler::value::VrlValueConvert::into_expression(value)
+        $crate::compiler::value::RipsawValueConvert::into_expression(value)
     }};
 }
 
 #[allow(clippy::module_name_repetitions, clippy::missing_errors_doc)]
-pub trait VrlValueConvert: Sized {
+pub trait RipsawValueConvert: Sized {
     /// Convert a given [`Value`] into a [`Expression`] trait object.
     fn into_expression(self) -> Box<dyn Expression>;
 
@@ -42,7 +42,7 @@ pub trait VrlValueConvert: Sized {
     fn try_bytes_utf8_lossy(&self) -> Result<Cow<'_, str>, ValueError>;
 }
 
-impl VrlValueConvert for Value {
+impl RipsawValueConvert for Value {
     /// Convert a given [`Value`] into a [`Expression`] trait object.
     fn into_expression(self) -> Box<dyn Expression> {
         Box::new(Expr::from(self))

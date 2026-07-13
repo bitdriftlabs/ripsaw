@@ -1,0 +1,16 @@
+# result:
+#
+# error[E104]: unnecessary error assignment
+#   ┌─ :2:5
+#   │
+# 2 │ ok, err = 5;
+#   │ --  ^^^   - because this expression can't fail
+#   │ │   │
+#   │ │   this error assignment is unnecessary
+#   │ use: ok = 5
+#   │
+#   = see documentation about error handling at https://docs.bitdrift.io/product/workflows/scripting/errors#error-handling
+#   = learn more about error code 104 at https://docs.bitdrift.io/product/workflows/scripting/errors#104
+#   = see language documentation at https://docs.bitdrift.io/product/workflows/scripting/language
+
+ok, err = 5;

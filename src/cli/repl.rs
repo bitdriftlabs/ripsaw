@@ -2,7 +2,9 @@ use crate::compiler::TargetValue;
 use crate::compiler::TimeZone;
 use crate::compiler::runtime::Runtime;
 use crate::compiler::state::{RuntimeState, TypeState};
-use crate::compiler::{CompileConfig, Function, Program, Target, VrlRuntime, compile_with_state};
+use crate::compiler::{
+    CompileConfig, Function, Program, RipsawRuntime, Target, compile_with_state,
+};
 use crate::diagnostic::Formatter;
 use crate::owned_metadata_path;
 use crate::value::Secrets;
@@ -54,7 +56,7 @@ pub(crate) fn run(
     quiet: bool,
     mut objects: Vec<TargetValue>,
     timezone: TimeZone,
-    vrl_runtime: VrlRuntime,
+    script_runtime: RipsawRuntime,
     stdlib_functions: Vec<Box<dyn Function>>,
 ) -> Result<(), rustyline::error::ReadlineError> {
     let stdlib_functions = Rc::new(stdlib_functions);
@@ -129,7 +131,7 @@ pub(crate) fn run(
                     command,
                     &mut state,
                     timezone,
-                    vrl_runtime,
+                    script_runtime,
                     &stdlib_functions,
                 );
 
@@ -162,7 +164,7 @@ fn resolve(
     program: &str,
     state: &mut TypeState,
     timezone: TimeZone,
-    vrl_runtime: VrlRuntime,
+    script_runtime: RipsawRuntime,
     stdlib_functions: &[Box<dyn Function>],
 ) -> Result<Value, String> {
     let mut config = CompileConfig::default();
@@ -178,7 +180,7 @@ fn resolve(
     };
 
     *state = program.final_type_info().state;
-    execute(runtime, &program, target, timezone, vrl_runtime)
+    execute(runtime, &program, target, timezone, script_runtime)
 }
 
 fn execute(
@@ -186,10 +188,10 @@ fn execute(
     program: &Program,
     object: &mut dyn Target,
     timezone: TimeZone,
-    vrl_runtime: VrlRuntime,
+    script_runtime: RipsawRuntime,
 ) -> Result<Value, String> {
-    match vrl_runtime {
-        VrlRuntime::Ast => runtime
+    match script_runtime {
+        RipsawRuntime::Ast => runtime
             .resolve(object, program, &timezone)
             .map_err(|err| err.to_string()),
     }
@@ -308,14 +310,14 @@ impl Validator for Repl {
             ctx.input(),
             &mut state,
             timezone,
-            VrlRuntime::Ast,
+            RipsawRuntime::Ast,
             &self.stdlib_functions,
         );
 
         let result = match result {
             Err(error) => {
                 // TODO: Ideally we'd used typed errors for this, but
-                // that requires some more work to the VRL compiler.
+                // that requires some more work to the Ripsaw compiler.
                 if error.contains("syntax error") && error.contains("unexpected end of program") {
                     ValidationResult::Incomplete
                 } else {
@@ -417,10 +419,10 @@ fn show_error_docs(line: &str, pattern: &Regex) {
 }
 
 const HELP_TEXT: &str = indoc! {r#"
-    VRL REPL commands:
-      help functions     Display a list of currently available VRL functions (aliases: ["help funcs", "help fs"])
-      help docs          Navigate to the VRL docs on the Vector website
-      help docs <func>   Navigate to the VRL docs for the specified function
+    Ripsaw REPL commands:
+      help functions     Display a list of currently available Ripsaw functions (aliases: ["help funcs", "help fs"])
+      help docs          Navigate to the Ripsaw docs on the website
+      help docs <func>   Navigate to the Ripsaw docs for the specified function
       help error <code>  Navigate to the docs for a specific error code
       next               Load the next object or create a new one
       prev               Load the previous object
@@ -428,39 +430,19 @@ const HELP_TEXT: &str = indoc! {r#"
 "#};
 
 const BANNER_TEXT: &str = indoc! {"
-    > VVVVVVVV           VVVVVVVVRRRRRRRRRRRRRRRRR   LLLLLLLLLLL
-    > V::::::V           V::::::VR::::::::::::::::R  L:::::::::L
-    > V::::::V           V::::::VR::::::RRRRRR:::::R L:::::::::L
-    > V::::::V           V::::::VRR:::::R     R:::::RLL:::::::LL
-    >  V:::::V           V:::::V   R::::R     R:::::R  L:::::L
-    >   V:::::V         V:::::V    R::::R     R:::::R  L:::::L
-    >    V:::::V       V:::::V     R::::RRRRRR:::::R   L:::::L
-    >     V:::::V     V:::::V      R:::::::::::::RR    L:::::L
-    >      V:::::V   V:::::V       R::::RRRRRR:::::R   L:::::L
-    >       V:::::V V:::::V        R::::R     R:::::R  L:::::L
-    >        V:::::V:::::V         R::::R     R:::::R  L:::::L
-    >         V:::::::::V          R::::R     R:::::R  L:::::L         LLLLLL
-    >          V:::::::V         RR:::::R     R:::::RLL:::::::LLLLLLLLL:::::L
-    >           V:::::V          R::::::R     R:::::RL::::::::::::::::::::::L
-    >            V:::V           R::::::R     R:::::RL::::::::::::::::::::::L
-    >             VVV            RRRRRRRR     RRRRRRRLLLLLLLLLLLLLLLLLLLLLLLL
-    >
-    >                     VECTOR    REMAP    LANGUAGE
-    >
-    >
     > Welcome!
     >
     > The CLI is running in REPL (Read-eval-print loop) mode.
     >
     > To run the CLI in regular mode, add a program to your command.
     >
-    > VRL REPL commands:
-    >   help              Learn more about VRL
+    > Ripsaw REPL commands:
+    >   help              Learn more about Ripsaw
     >   next              Load the next object or create a new one
     >   prev              Load the previous object
     >   exit              Terminate the program
     >
-    > Any other value is resolved to a VRL expression.
+    > Any other value is resolved to a Ripsaw expression.
     >
     > Try it out now by typing `.` and hitting [enter] to see the result.
 "};

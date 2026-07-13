@@ -58,8 +58,8 @@ impl Function for BaseName {
         &[
             example! {
                 title: "Extract basename from file path",
-                source: r#"basename!("/usr/local/bin/vrl")"#,
-                result: Ok("\"vrl\""),
+                source: r#"basename!("/usr/local/bin/ripsaw")"#,
+                result: Ok("\"ripsaw\""),
             },
             example! {
                 title: "Extract basename from file path with extension",

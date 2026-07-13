@@ -1,0 +1,14 @@
+# result:
+# error[E122]: type mismatch in closure return type
+#   ┌─ :2:34
+#   │
+# 2 │ replace_with("", r'test') -> |m| { to_int!(m.string) }
+#   │                                  ^^^^^^^^^^^^^^^^^^^^^
+#   │                                  │
+#   │                                  block returns invalid value type
+#   │                                  received: integer
+#   │                                  expected: string
+#   │
+#   = see language documentation at https://docs.bitdrift.io/product/workflows/scripting/language
+
+replace_with("", r'test') -> |m| { to_int!(m.string) }

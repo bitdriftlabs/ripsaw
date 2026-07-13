@@ -67,7 +67,7 @@ impl Function for DirName {
         &[
             example! {
                 title: "Extract dirname from file path",
-                source: r#"dirname!("/usr/local/bin/vrl")"#,
+                source: r#"dirname!("/usr/local/bin/ripsaw")"#,
                 result: Ok("\"/usr/local/bin\""),
             },
             example! {

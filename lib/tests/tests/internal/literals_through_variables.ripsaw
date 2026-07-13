@@ -1,0 +1,4 @@
+# result: 224
+
+var = "224"
+to_int!(var)

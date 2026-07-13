@@ -1,5 +1,5 @@
 # Internal
 
-This directory contains tests that validate internal workings of VRL.
+This directory contains tests that validate internal workings of Ripsaw.
 
 New tests should only be added here if they don't fit any other category.

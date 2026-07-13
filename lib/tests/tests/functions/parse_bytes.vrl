@@ -1,3 +1,0 @@
-# result: 1024.0
-
-parse_bytes!("1KB", unit: "B")

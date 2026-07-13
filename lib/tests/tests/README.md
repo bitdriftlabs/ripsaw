@@ -42,7 +42,7 @@ details._
 
 ## Fix Me
 
-Contains tests that demonstrate an open bug in VRL.
+Contains tests that demonstrate an open bug in Ripsaw.
 
 These tests are disabled by default, but are created to keep track of these bugs
 in our test suite until they are fixed. Ideally this directory is empty.
@@ -52,7 +52,7 @@ details._
 
 ## Internal
 
-Contains a set of tests that validate internal workings of VRL not specific to
+Contains a set of tests that validate internal workings of Ripsaw not specific to
 a specific expression, diagnostic, etc. New tests should only be added here if
 they don't fit any other category.
 

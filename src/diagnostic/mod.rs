@@ -31,9 +31,11 @@ mod note;
 mod severity;
 mod span;
 
-const VRL_DOCS_ROOT_URL: &str = "https://docs.bitdrift.io/product/workflows/scripting/language";
-const VRL_ERROR_DOCS_ROOT_URL: &str = "https://docs.bitdrift.io/product/workflows/scripting/errors";
-const VRL_FUNCS_ROOT_URL: &str = "https://docs.bitdrift.io/product/workflows/scripting/functions";
+const RIPSAW_DOCS_ROOT_URL: &str = "https://docs.bitdrift.io/product/workflows/scripting/language";
+const RIPSAW_ERROR_DOCS_ROOT_URL: &str =
+    "https://docs.bitdrift.io/product/workflows/scripting/errors";
+const RIPSAW_FUNCS_ROOT_URL: &str =
+    "https://docs.bitdrift.io/product/workflows/scripting/functions";
 
 /// A trait that can be implemented by error types to provide diagnostic
 /// information about the given error.
@@ -72,34 +74,34 @@ pub trait DiagnosticMessage: std::error::Error {
 pub struct Urls;
 
 impl Urls {
-    fn vrl_root_url() -> String {
-        VRL_DOCS_ROOT_URL.into()
+    fn ripsaw_root_url() -> String {
+        RIPSAW_DOCS_ROOT_URL.into()
     }
 
     #[must_use]
     pub fn func_docs(ident: &str) -> String {
-        format!("{VRL_FUNCS_ROOT_URL}#{ident}")
+        format!("{RIPSAW_FUNCS_ROOT_URL}#{ident}")
     }
 
     fn error_handling_url() -> String {
-        format!("{VRL_ERROR_DOCS_ROOT_URL}#error-handling")
+        format!("{RIPSAW_ERROR_DOCS_ROOT_URL}#error-handling")
     }
 
     fn error_code_url(code: usize) -> String {
-        format!("{VRL_ERROR_DOCS_ROOT_URL}#{code}")
+        format!("{RIPSAW_ERROR_DOCS_ROOT_URL}#{code}")
     }
 
     #[must_use]
     pub fn expression_docs_url(expr: &str) -> String {
-        format!("{VRL_DOCS_ROOT_URL}#{expr}")
+        format!("{RIPSAW_DOCS_ROOT_URL}#{expr}")
     }
 
     fn example_docs() -> String {
-        format!("{VRL_DOCS_ROOT_URL}/examples")
+        format!("{RIPSAW_DOCS_ROOT_URL}/examples")
     }
 
     #[must_use]
     pub fn func_characteristics() -> String {
-        format!("{VRL_DOCS_ROOT_URL}#function-call")
+        format!("{RIPSAW_DOCS_ROOT_URL}#function-call")
     }
 }

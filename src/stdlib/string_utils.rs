@@ -1,4 +1,4 @@
-use crate::prelude::{Value, ValueError, VrlValueConvert};
+use crate::prelude::{RipsawValueConvert, Value, ValueError};
 use std::borrow::Cow;
 
 #[allow(clippy::result_large_err)]

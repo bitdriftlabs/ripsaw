@@ -1,0 +1,9 @@
+# result: { "x": true }
+
+. = {}
+_result = if true {
+   .x = true
+} else {
+   .y = "hi"
+}
+.

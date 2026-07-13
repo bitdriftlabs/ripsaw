@@ -1,4 +1,3 @@
-cognitive-complexity-threshold = 75
 
 # https://github.com/vectordotdev/vrl/issues/1620
 # Disallow for non-std types (for now)

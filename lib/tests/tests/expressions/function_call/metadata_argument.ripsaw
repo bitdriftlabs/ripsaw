@@ -1,0 +1,4 @@
+# result: "foo"
+
+%foo = "foo"
+to_string(%foo)

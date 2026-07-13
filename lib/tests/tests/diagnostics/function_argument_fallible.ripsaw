@@ -1,0 +1,15 @@
+# result:
+#
+# error[E630]: fallible argument
+#   ┌─ :2:8
+#   │
+# 2 │ to_int(5 / 0)
+#   │        ^^^^^
+#   │        │
+#   │        this expression can fail
+#   │        handle the error before passing it in as an argument
+#   │
+#   = see documentation about error handling at https://docs.bitdrift.io/product/workflows/scripting/errors#error-handling
+#   = see language documentation at https://docs.bitdrift.io/product/workflows/scripting/language
+
+to_int(5 / 0)

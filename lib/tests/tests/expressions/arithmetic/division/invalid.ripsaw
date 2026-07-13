@@ -1,0 +1,194 @@
+# result: [
+#     "can't divide type integer by boolean",
+#     "can't divide type integer by boolean",
+#     "can't divide type integer by null",
+#     "can't divide type integer by array",
+#     "can't divide type integer by object",
+#     "can't divide type integer by regex",
+#     "can't divide type integer by timestamp",
+#
+#     "can't divide type float by string",
+#     "can't divide type float by boolean",
+#     "can't divide type float by boolean",
+#     "can't divide type float by null",
+#     "can't divide type float by array",
+#     "can't divide type float by object",
+#     "can't divide type float by regex",
+#     "can't divide type float by timestamp",
+#
+#     "can't divide type string by string",
+#     "can't divide type string by float",
+#     "can't divide type string by boolean",
+#     "can't divide type string by boolean",
+#     "can't divide type string by null",
+#     "can't divide type string by array",
+#     "can't divide type string by object",
+#     "can't divide type string by regex",
+#     "can't divide type string by timestamp",
+#
+#     "can't divide type boolean by string",
+#     "can't divide type boolean by integer",
+#     "can't divide type boolean by float",
+#     "can't divide type boolean by boolean",
+#     "can't divide type boolean by boolean",
+#     "can't divide type boolean by null",
+#     "can't divide type boolean by array",
+#     "can't divide type boolean by object",
+#     "can't divide type boolean by regex",
+#     "can't divide type boolean by timestamp",
+#
+#     "can't divide type null by string",
+#     "can't divide type null by integer",
+#     "can't divide type null by float",
+#     "can't divide type null by boolean",
+#     "can't divide type null by boolean",
+#     "can't divide type null by null",
+#     "can't divide type null by array",
+#     "can't divide type null by object",
+#     "can't divide type null by regex",
+#     "can't divide type null by timestamp",
+#
+#     "can't divide type array by string",
+#     "can't divide type array by integer",
+#     "can't divide type array by float",
+#     "can't divide type array by boolean",
+#     "can't divide type array by boolean",
+#     "can't divide type array by null",
+#     "can't divide type array by array",
+#     "can't divide type array by object",
+#     "can't divide type array by regex",
+#     "can't divide type array by timestamp",
+#
+#     "can't divide type object by string",
+#     "can't divide type object by integer",
+#     "can't divide type object by float",
+#     "can't divide type object by boolean",
+#     "can't divide type object by boolean",
+#     "can't divide type object by null",
+#     "can't divide type object by array",
+#     "can't divide type object by object",
+#     "can't divide type object by regex",
+#     "can't divide type object by timestamp",
+#
+#     "can't divide type regex by string",
+#     "can't divide type regex by integer",
+#     "can't divide type regex by float",
+#     "can't divide type regex by boolean",
+#     "can't divide type regex by boolean",
+#     "can't divide type regex by null",
+#     "can't divide type regex by array",
+#     "can't divide type regex by object",
+#     "can't divide type regex by regex",
+#     "can't divide type regex by timestamp"
+# ]
+
+_ok, err1 = 1 / true
+_ok, err2 = 1 / false
+_ok, err3 = 1 / null
+_ok, err4 = 1 / []
+_ok, err5 = 1 / {}
+_ok, err6 = 1 / r'foo'
+_ok, err7 = 1 / t'2023-05-04T22:22:22.234142Z'
+
+integer_errs = [err1, err2, err3, err4, err5, err6, err7]
+
+_ok, err1 = 1.0 / "foo"
+_ok, err2 = 1.0 / true
+_ok, err3 = 1.0 / false
+_ok, err4 = 1.0 / null
+_ok, err5 = 1.0 / []
+_ok, err6 = 1.0 / {}
+_ok, err7 = 1.0 / r'foo'
+_ok, err8 = 1.0 / t'2023-05-04T22:22:22.234142Z'
+
+float_errs = [err1, err2, err3, err4, err5, err6, err7, err8]
+
+_ok, err1 = "foo" / "foo"
+_ok, err2 = "foo" / 1.0
+_ok, err3 = "foo" / true
+_ok, err4 = "foo" / false
+_ok, err5 = "foo" / null
+_ok, err6 = "foo" / []
+_ok, err7 = "foo" / {}
+_ok, err8 = "foo" / r'foo'
+_ok, err9 = "foo" / t'2023-05-04T22:22:22.234142Z'
+
+string_errs = [err1, err2, err3, err4, err5, err6, err7, err8, err9]
+
+_ok, err1  = true / "foo"
+_ok, err2  = true / 1
+_ok, err3  = true / 1.0
+_ok, err4  = true / true
+_ok, err5  = true / false
+_ok, err6  = true / null
+_ok, err7  = true / []
+_ok, err8  = true / {}
+_ok, err9  = true / r'foo'
+_ok, err10 = true / t'2023-05-04T22:22:22.234142Z'
+
+bool_errs = [err1, err2, err3, err4, err5, err6, err7, err8, err9, err10]
+
+_ok, err1  = null / "foo"
+_ok, err2  = null / 1
+_ok, err3  = null / 1.0
+_ok, err4  = null / true
+_ok, err5  = null / false
+_ok, err6  = null / null
+_ok, err7  = null / []
+_ok, err8  = null / {}
+_ok, err9  = null / r'foo'
+_ok, err10 = null / t'2023-05-04T22:22:22.234142Z'
+
+null_errs = [err1, err2, err3, err4, err5, err6, err7, err8, err9, err10]
+
+_ok, err1  = [] / "foo"
+_ok, err2  = [] / 1
+_ok, err3  = [] / 1.0
+_ok, err4  = [] / true
+_ok, err5  = [] / false
+_ok, err6  = [] / null
+_ok, err7  = [] / []
+_ok, err8  = [] / {}
+_ok, err9  = [] / r'foo'
+_ok, err10 = [] / t'2023-05-04T22:22:22.234142Z'
+
+array_errs = [err1, err2, err3, err4, err5, err6, err7, err8, err9, err10]
+
+_ok, err1  = {} / "foo"
+_ok, err2  = {} / 1
+_ok, err3  = {} / 1.0
+_ok, err4  = {} / true
+_ok, err5  = {} / false
+_ok, err6  = {} / null
+_ok, err7  = {} / []
+_ok, err8  = {} / {}
+_ok, err9  = {} / r'foo'
+_ok, err10 = {} / t'2023-05-04T22:22:22.234142Z'
+
+object_errs = [err1, err2, err3, err4, err5, err6, err7, err8, err9, err10]
+
+_ok, err1  = r'' / "foo"
+_ok, err2  = r'' / 1
+_ok, err3  = r'' / 1.0
+_ok, err4  = r'' / true
+_ok, err5  = r'' / false
+_ok, err6  = r'' / null
+_ok, err7  = r'' / []
+_ok, err8  = r'' / {}
+_ok, err9  = r'' / r'foo'
+_ok, err10 = r'' / t'2023-05-04T22:22:22.234142Z'
+
+regex_errs = [err1, err2, err3, err4, err5, err6, err7, err8, err9, err10]
+
+errs = [
+    integer_errs,
+    float_errs,
+    string_errs,
+    bool_errs,
+    null_errs,
+    array_errs,
+    object_errs,
+    regex_errs,
+]
+
+flatten(errs)

@@ -5,7 +5,7 @@ use std::ops::{Add, Mul, Rem};
 
 use crate::compiler::{
     ExpressionError,
-    value::{Kind, VrlValueConvert},
+    value::{Kind, RipsawValueConvert},
 };
 use crate::value::{ObjectMap, Value};
 use bytes::{BufMut, Bytes, BytesMut};
@@ -13,7 +13,7 @@ use bytes::{BufMut, Bytes, BytesMut};
 use super::ValueError;
 
 #[allow(clippy::missing_errors_doc)]
-pub trait VrlValueArithmetic: Sized {
+pub trait RipsawValueArithmetic: Sized {
     /// Similar to [`std::ops::Mul`], but fallible (e.g. `TryMul`).
     fn try_mul(self, rhs: Self) -> Result<Self, ValueError>;
 
@@ -70,7 +70,7 @@ fn safe_sub(lhv: f64, rhv: f64) -> Option<Value> {
     }
 }
 
-impl VrlValueArithmetic for Value {
+impl RipsawValueArithmetic for Value {
     /// Similar to [`std::ops::Mul`], but fallible (e.g. `TryMul`).
     fn try_mul(self, rhs: Self) -> Result<Self, ValueError> {
         let err = || ValueError::Mul(self.kind(), rhs.kind());

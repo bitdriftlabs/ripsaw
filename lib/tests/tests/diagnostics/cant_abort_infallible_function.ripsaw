@@ -1,0 +1,15 @@
+# DIAGNOSTICS
+# result:
+#
+# warning[E620]: can't abort infallible function
+#   ┌─ :2:1
+#   │
+# 2 │ abs!(1)
+#   │ ^^^- remove this abort (!) instruction
+#   │ │
+#   │ this function can't fail
+#   │
+#   = see documentation about error handling at https://docs.bitdrift.io/product/workflows/scripting/errors#error-handling
+#   = see language documentation at https://docs.bitdrift.io/product/workflows/scripting/language
+
+abs!(1)

@@ -1,16 +1,16 @@
-# Vector Remap Language Test Harness
+# Test Harness
 
 This test harness allows us to run a variety of test cases against the latest
-build of VRL.
+build of Ripsaw.
 
 The goal is to make it as simple as possible for other contributors to expand
 our test coverage, without the requirement to know anything about the internals
-of VRL itself, or the language in which VRL is built (Rust).
+of Ripsaw itself, or the language in which Ripsaw is built (Rust).
 
 ## Adding Tests
 
 New tests are added in the [`tests`](./tests) sub-directory. There's an
-[`example.vrl`](./tests/example.vrl) file to show the general structure of a
+[`example.vrl`](./tests/example.ripsaw) file to show the general structure of a
 test case.
 
 Each directory inside the test directory has its own documentation to explain
@@ -24,7 +24,7 @@ which tests go where.
   then run `cargo run` in this directory.
 
   You can also use [cargo-watch](https://crates.io/crates/cargo-watch) to
-  continuously run the tests as you make changes to VRL or the tests themselves.
+  continuously run the tests as you make changes to Ripsaw or the tests themselves.
 
 - **How does the CLI work?**
 
@@ -46,7 +46,7 @@ which tests go where.
   issue describing what's unclear. We'll help you out in the issue and make sure
   to improve the documentation for future contributors.
 
-- **I've made changes to VRL, resulting in many broken tests!**
+- **I've made changes to Ripsaw, resulting in many broken tests!**
 
   This is an unfortunate — but expected — side-effect of using "UI testing".
 

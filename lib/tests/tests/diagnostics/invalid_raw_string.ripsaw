@@ -1,0 +1,11 @@
+# result:
+#
+# error[E208]: invalid literal
+#   ┌─ :2:1
+#   │
+# 2 │ s'foobar
+#   │ ^ invalid literal
+#   │
+#   = see language documentation at https://docs.bitdrift.io/product/workflows/scripting/language
+
+s'foobar

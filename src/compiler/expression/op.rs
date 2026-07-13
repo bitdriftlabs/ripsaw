@@ -5,7 +5,7 @@ use crate::compiler::{
     Context, Expression, TypeDef,
     expression::{self, Expr, Resolved},
     parser::{Node, ast},
-    value::VrlValueArithmetic,
+    value::RipsawValueArithmetic,
 };
 use crate::diagnostic::{DiagnosticMessage, Label, Note, Span, Urls};
 use crate::value::Value;
@@ -420,7 +420,7 @@ impl DiagnosticMessage for Error {
         match self {
             ChainedComparison { .. } => vec![Note::SeeDocs(
                 "comparisons".to_owned(),
-                Urls::expression_docs_url("#comparison"),
+                Urls::expression_docs_url("comparison"),
             )],
             Expr(err) => err.notes(),
             _ => vec![],

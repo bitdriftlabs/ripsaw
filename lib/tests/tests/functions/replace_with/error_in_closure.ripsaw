@@ -1,0 +1,7 @@
+# result:
+# function call error for "replace_with" at (1:88): function call error for "int" at (64:75): expected integer, got boolean
+
+replace_with("this is a test", r'(?i)test') -> |_m| {
+    _x = int!(false)
+    "TEST"
+}

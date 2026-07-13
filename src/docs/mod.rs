@@ -1,7 +1,7 @@
 #![deny(warnings, clippy::pedantic)]
 pub mod cmd;
 
-pub use cmd::{Opts, docs};
+pub use cmd::Opts;
 
 use crate::compiler::Function;
 use crate::compiler::value::kind;
@@ -100,7 +100,7 @@ pub fn document_functions_to_dir(
         debug!(path = ?filepath.display(), "Generated file");
     }
 
-    info!("VRL documentation generation complete.");
+    info!("Ripsaw documentation generation complete.");
     Ok(())
 }
 
@@ -182,7 +182,7 @@ pub fn build_function_doc(func: &dyn Function) -> FunctionDoc {
             let source = source.to_string();
             let title = title.to_string();
             let input = input
-                .map(|s| serde_json::from_str(s).expect("VRL example input must be valid JSON"));
+                .map(|s| serde_json::from_str(s).expect("Ripsaw example input must be valid JSON"));
             ExampleDoc {
                 title,
                 source,

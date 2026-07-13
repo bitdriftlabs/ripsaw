@@ -1,0 +1,13 @@
+# result: true
+
+.a = 5
+if false {
+  .a = "string"
+}
+assert!(.a == 5)
+
+.a = 5
+if true {
+  .a = "string"
+}
+assert!(.a == "string")

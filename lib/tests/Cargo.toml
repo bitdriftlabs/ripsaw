@@ -1,12 +1,11 @@
 [package]
-name = "vrl-tests"
-version = "0.1.0"
-authors = ["Vector Contributors <vector@datadoghq.com>"]
-edition = "2021"
+name = "ripsaw-tests"
+version = "1.0.0"
+edition = "2024"
 publish = false
 
 [dependencies]
-vrl = { path = "../../", features = ["test_framework"] }
+ripsaw = { path = "../../", features = ["test_framework"] }
 chrono-tz = "0.10"
 clap.workspace = true
 glob = "0.3"

@@ -162,12 +162,12 @@ fn convert_value(
     }
 }
 
-/// Converts a VRL [`Value`] into a protobuf [`DynamicMessage`].
+/// Converts a Ripsaw [`Value`] into a protobuf [`DynamicMessage`].
 ///
 /// # Arguments
 ///
 /// * `message_descriptor` - The protobuf message schema descriptor
-/// * `value` - The VRL value to encode
+/// * `value` - The Ripsaw value to encode
 /// * `options` - Encoding options (e.g., whether to use JSON field names)
 ///
 /// # Returns

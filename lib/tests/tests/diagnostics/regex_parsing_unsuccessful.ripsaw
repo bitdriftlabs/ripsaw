@@ -1,0 +1,13 @@
+# result:
+#
+# error[E101]: invalid regular expression
+#   ┌─ :2:1
+#   │
+# 2 │ r'['
+#   │ ^^^^ regex parse error: unclosed character class: [
+#   │
+#   = see documentation about regular expressions at https://docs.bitdrift.io/product/workflows/scripting/language#regular-expression
+#   = learn more about error code 101 at https://docs.bitdrift.io/product/workflows/scripting/errors#101
+#   = see language documentation at https://docs.bitdrift.io/product/workflows/scripting/language
+
+r'['

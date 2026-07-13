@@ -10,7 +10,7 @@ pub enum Error {
     #[error("io error: {}", .0)]
     Io(#[from] std::io::Error),
 
-    // this is the set of rendered end-user diagnostic errors when a VRL program fails to compile
+    // this is the set of rendered end-user diagnostic errors when a Ripsaw program fails to compile
     #[error("{}", .0)]
     Parse(String),
 

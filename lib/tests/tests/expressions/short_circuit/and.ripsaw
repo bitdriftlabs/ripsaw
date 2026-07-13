@@ -1,0 +1,24 @@
+# result: {
+#   "a": false,
+#   "b": "string",
+#   "c": "string"
+# }
+
+# This should be infallible (even though the right-hand side is fallible)
+_x = false && (1/0)
+
+x = false
+_x = false && {x = "string"}
+
+# The typedef of the RHS is not applied (since it is guaranteed to short-circuit)
+result.a = x
+
+# The typedef of RHS is conditionally applied (can't know if it will be resolved or not)
+.unknown || {x = "string"}
+result.b = x
+
+# The typedef of RHS is always applied
+_x = false || {x = "string"; true}
+result.c = x
+
+result

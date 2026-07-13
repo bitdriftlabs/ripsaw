@@ -1,0 +1,19 @@
+# result:
+#
+# error[E102]: non-boolean predicate
+#   ┌─ :2:4
+#   │
+# 2 │ if "nope" {
+#   │    ^^^^^^
+#   │    │
+#   │    this predicate must resolve to a boolean
+#   │    instead it resolves to string
+#   │
+#   = hint: coerce the value to the required type using a coercion function
+#   = see documentation about if expressions at https://docs.bitdrift.io/product/workflows/scripting/language#if
+#   = learn more about error code 102 at https://docs.bitdrift.io/product/workflows/scripting/errors#102
+#   = see language documentation at https://docs.bitdrift.io/product/workflows/scripting/language
+
+if "nope" {
+    true
+}

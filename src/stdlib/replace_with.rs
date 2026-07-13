@@ -173,13 +173,13 @@ impl Function for ReplaceWith {
                 result: Ok("Apples And Bananas"),
             },
             example! {
-                title: "Replace with hash",
+                title: "Replace with [REDACTED]",
                 source: indoc! {r#"
                     replace_with("email from test@example.com", r'\w+@example.com') -> |match| {
-                        sha2(match.string, variant: "SHA-512/224")
+                        "[REDACTED]"
                     }
                 "#},
-                result: Ok("email from adf6e1bc4415d24912bd93072ad34ef825a7b6eb3bf53f68def1fc17"),
+                result: Ok("email from [REDACTED]"),
             },
             example! {
                 title: "Replace first instance",
@@ -204,10 +204,10 @@ impl Function for ReplaceWith {
                 title: "Replace with processed capture group",
                 source: indoc! {r#"
                     replace_with(s'Got message: {"msg": "b"}', r'message: (\{.*\})') -> |m| {
-                        to_string!(parse_json!(m.captures[0]).msg)
+                        to_string(m.captures[0])
                     }
                 "#},
-                result: Ok("Got b"),
+                result: Ok(r#"Got {"msg": "b"}"#),
             },
             example! {
                 title: "Replace with optional capture group",
@@ -265,10 +265,10 @@ impl Function for ReplaceWith {
                 }],
                 output: Output::Kind(Kind::bytes()),
                 example: example! {
-                    title: "replace with hash",
-                    source: r#"replace_with("received email from a@example.com", pattern: r'\w+@\w+\.\w+') -> |match| { sha2(match.string) }"#,
+                    title: "replace with redacted",
+                    source: r#"replace_with("received email from a@example.com", pattern: r'\w+@\w+\.\w+') -> |match| { "[REDACTED]" }"#,
                     result: Ok(
-                        "received email from 896bdca840c9304a5d0bdbeacc4ef359e3093f80c9777c9967e31ba0ff99ed58",
+                        "received email from [REDACTED]",
                     ),
                 },
             }],

@@ -1,0 +1,23 @@
+# DIAGNOSTICS
+# result:
+#
+# error[E122]: type mismatch in closure return type
+#   ┌─ :2:37
+#   │
+# 2 │       filter([1, 2, 3]) -> |_key, _value| {
+#   │ ╭─────────────────────────────────────────^
+#   │ │ ╭───────────────────────────────────────'
+#   │ │ │ ╭─────────────────────────────────────'
+# 3 │ │ │ │   return 0
+# 4 │ │ │ │   true
+# 5 │ │ │ │ }
+#   │ ╰─│─│─^ block returns invalid value type
+#   │   ╰─│─' expected: boolean
+#   │     ╰─' received: integer or boolean
+#   │
+#   = see language documentation at https://docs.bitdrift.io/product/workflows/scripting/language
+
+filter([1, 2, 3]) -> |_key, _value| {
+  return 0
+  true
+}

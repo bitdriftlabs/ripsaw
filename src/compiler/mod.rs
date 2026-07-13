@@ -158,10 +158,10 @@ pub fn compile_with_state(
     result
 }
 
-/// Available VRL runtimes.
+/// Available Ripsaw runtimes.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Default, Serialize, Deserialize)]
 #[serde(rename_all = "lowercase")]
-pub enum VrlRuntime {
+pub enum RipsawRuntime {
     /// Tree-walking runtime.
     ///
     /// This is the only, and default, runtime.
@@ -169,7 +169,7 @@ pub enum VrlRuntime {
     Ast,
 }
 
-impl FromStr for VrlRuntime {
+impl FromStr for RipsawRuntime {
     type Err = &'static str;
 
     fn from_str(s: &str) -> std::result::Result<Self, Self::Err> {
@@ -180,13 +180,13 @@ impl FromStr for VrlRuntime {
     }
 }
 
-impl Display for VrlRuntime {
+impl Display for RipsawRuntime {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(
             f,
             "{}",
             match self {
-                VrlRuntime::Ast => "ast",
+                RipsawRuntime::Ast => "ast",
             }
         )
     }

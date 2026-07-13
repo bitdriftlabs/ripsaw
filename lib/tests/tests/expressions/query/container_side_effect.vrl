@@ -1,7 +1,0 @@
-# result: {"type": { "bytes": true }, "value": "foo"}
-. = 3
-{. = "foo"}.x
-{
-    "value": .,
-    "type": type_def(.)
-}

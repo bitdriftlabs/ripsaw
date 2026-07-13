@@ -1,0 +1,15 @@
+# result:
+#
+# error[E660]: non-boolean negation
+#   ┌─ :2:2
+#   │
+# 2 │ !!"true"
+#   │  ^------ this expression resolves to string
+#   │  │
+#   │  negation only works on boolean values
+#   │
+#   = hint: coerce the value to the required type using a coercion function
+#   = see documentation about type coercion at https://docs.bitdrift.io/product/workflows/scripting/functions#coerce-functions
+#   = see language documentation at https://docs.bitdrift.io/product/workflows/scripting/language
+
+!!"true"

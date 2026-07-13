@@ -3,7 +3,7 @@ use std::{collections::BTreeMap, fs, path::Path};
 use crate::compiler::function::Example;
 use crate::path::OwnedTargetPath;
 use crate::path::parse_value_path;
-use crate::test::{example_vrl_path, test_prefix};
+use crate::test::{example_code_path, test_prefix};
 use crate::value::Value;
 
 #[derive(Debug)]
@@ -179,7 +179,7 @@ impl Test {
 }
 
 fn test_category(path: &Path) -> String {
-    if path == example_vrl_path() {
+    if path == example_code_path() {
         return "uncategorized".to_owned();
     }
 

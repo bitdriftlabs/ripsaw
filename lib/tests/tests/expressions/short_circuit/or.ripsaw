@@ -1,0 +1,20 @@
+# result: {}
+
+# This should be infallible (even though the right-hand side is fallible)
+_x = true || (1/0)
+
+
+x = false
+_x = true || {x = "string"}
+
+# The typedef of the RHS is not applied (since it is guaranteed to short-circuit)
+assert!(x == true)
+
+# The typedef of RHS is conditionally applied (can't know if it will be resolved or not)
+.unknown || {x = "string"}
+assert!(x == "string")
+
+
+# The typedef of RHS is always applied
+_x = true && {x = "string"; true}
+assert!(x == "string")

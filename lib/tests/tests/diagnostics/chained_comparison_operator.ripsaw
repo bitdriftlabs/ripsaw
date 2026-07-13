@@ -1,0 +1,22 @@
+# result:
+#
+# error[E650]: comparison operators can't be chained together
+#   ┌─ :2:7
+#   │
+# 2 │ 2 < 3 < 4
+#   │       ^
+#   │
+#   = see documentation about comparisons at https://docs.bitdrift.io/product/workflows/scripting/language#comparison
+#   = see language documentation at https://docs.bitdrift.io/product/workflows/scripting/language
+#
+# error[E650]: comparison operators can't be chained together
+#   ┌─ :3:15
+#   │
+# 3 │ true == false == true
+#   │               ^^
+#   │
+#   = see documentation about comparisons at https://docs.bitdrift.io/product/workflows/scripting/language#comparison
+#   = see language documentation at https://docs.bitdrift.io/product/workflows/scripting/language
+
+2 < 3 < 4
+true == false == true

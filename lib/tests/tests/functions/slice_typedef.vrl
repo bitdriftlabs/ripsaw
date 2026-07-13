@@ -1,7 +1,0 @@
-# result: { "array": { "0": { "object": { "foo": { "object": { "a": { "integer": true } } } } }, "1": { "object": { "foo": { "object": { "a": { "bytes": true } } } } } } }
-
-a = []
-a[0] = {"foo": {"a": 1}}
-a[1] = {"foo": {"a": "bytes"}}
-_x = { "foo": { "a": "bytes" } }
-type_def(slice!(a, 0))

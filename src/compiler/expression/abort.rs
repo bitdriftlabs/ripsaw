@@ -4,7 +4,7 @@ use crate::compiler::{
     Context, Expression, Span, TypeDef,
     expression::{ExpressionError, Resolved},
     state::{TypeInfo, TypeState},
-    value::{Kind, VrlValueConvert},
+    value::{Kind, RipsawValueConvert},
 };
 use crate::diagnostic::{DiagnosticMessage, Label, Note, Urls};
 use crate::parser::ast::Node;
@@ -148,7 +148,7 @@ impl DiagnosticMessage for Error {
                 Note::CoerceValue,
                 Note::SeeDocs(
                     "type coercion".to_owned(),
-                    Urls::func_docs("#coerce-functions"),
+                    Urls::func_docs("coerce-functions"),
                 ),
             ],
         }

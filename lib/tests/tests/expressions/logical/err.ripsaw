@@ -1,0 +1,8 @@
+# result: [1, 2, false, 3]
+
+[
+    5 / 0 ?? 1,
+    to_int(s'2') ?? false,
+    to_int("nope") ?? false,
+    to_int("nope") ?? to_int("no") ?? to_int(s'3') ?? []
+]

@@ -1,0 +1,38 @@
+# result:
+#
+# error[E701]: call to undefined variable
+#   ┌─ :2:1
+#   │
+# 2 │ nil
+#   │ ^^^
+#   │ │
+#   │ undefined variable
+#   │ did you mean "null"?
+#   │
+#   = see language documentation at https://docs.bitdrift.io/product/workflows/scripting/language
+#
+# error[E701]: call to undefined variable
+#   ┌─ :3:1
+#   │
+# 3 │ tru
+#   │ ^^^
+#   │ │
+#   │ undefined variable
+#   │ did you mean "true"?
+#   │
+#   = see language documentation at https://docs.bitdrift.io/product/workflows/scripting/language
+#
+# error[E701]: call to undefined variable
+#   ┌─ :4:1
+#   │
+# 4 │ fals
+#   │ ^^^^
+#   │ │
+#   │ undefined variable
+#   │ did you mean "false"?
+#   │
+#   = see language documentation at https://docs.bitdrift.io/product/workflows/scripting/language
+
+nil
+tru
+fals

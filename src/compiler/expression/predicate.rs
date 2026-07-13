@@ -147,10 +147,7 @@ impl DiagnosticMessage for Error {
         match self {
             NonBoolean { .. } => vec![
                 Note::CoerceValue,
-                Note::SeeDocs(
-                    "if expressions".to_owned(),
-                    Urls::expression_docs_url("#if"),
-                ),
+                Note::SeeDocs("if expressions".to_owned(), Urls::expression_docs_url("if")),
             ],
             Fallible { notes, .. } => notes.clone(),
         }

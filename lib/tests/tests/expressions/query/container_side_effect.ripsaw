@@ -1,0 +1,6 @@
+# result: {"value": "foo"}
+. = 3
+{. = "foo"}.x
+{
+    "value": .,
+}

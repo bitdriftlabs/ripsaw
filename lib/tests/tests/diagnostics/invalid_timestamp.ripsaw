@@ -1,0 +1,12 @@
+# result:
+#
+# error[E601]: invalid timestamp
+#   ┌─ :2:1
+#   │
+# 2 │ t'foobar'
+#   │ ^^^^^^^^^ invalid timestamp format: input contains invalid characters
+#   │
+#   = see documentation about timestamps at https://docs.bitdrift.io/product/workflows/scripting/language#timestamp
+#   = see language documentation at https://docs.bitdrift.io/product/workflows/scripting/language
+
+t'foobar'

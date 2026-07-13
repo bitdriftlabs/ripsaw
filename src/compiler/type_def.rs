@@ -1,7 +1,7 @@
 //! `TypeDefs`
 //!
 //! The type definitions for typedefs record the various possible type definitions for the state
-//! that can be passed through a VRL program.
+//! that can be passed through a Ripsaw program.
 //!
 //! `TypeDef` contains a `KindInfo`.
 //!
@@ -61,7 +61,7 @@ impl Fallibility {
 #[derive(Default, Debug, Clone, Eq, PartialEq)]
 pub enum Purity {
     /// Used for functions that are idempotent and have no side effects.
-    /// The vast majority of VRL expressions (and functions) are pure.
+    /// The vast majority of Ripsaw expressions (and functions) are pure.
     #[default]
     Pure,
     /// Used for impure functions.
@@ -415,7 +415,7 @@ impl TypeDef {
         self
     }
 
-    /// VRL has an interesting property where accessing an undefined value "upgrades"
+    /// Ripsaw has an interesting property where accessing an undefined value "upgrades"
     /// it to a "null" value.
     /// This should be used in places those implicit upgrades can occur.
     // see: https://github.com/vectordotdev/vector/issues/13594

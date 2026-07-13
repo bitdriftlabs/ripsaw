@@ -13,7 +13,7 @@ pub fn proto_to_value(
     field_descriptor: Option<&prost_reflect::FieldDescriptor>,
     options: &Options,
 ) -> Result<Value, String> {
-    let vrl_value = match prost_reflect_value {
+    let rs_value = match prost_reflect_value {
         prost_reflect::Value::Bool(v) => Value::from(*v),
         prost_reflect::Value::I32(v) => Value::from(*v),
         prost_reflect::Value::I64(v) => Value::from(*v),
@@ -99,7 +99,7 @@ pub fn proto_to_value(
             }
         }
     };
-    Ok(vrl_value)
+    Ok(rs_value)
 }
 
 #[cfg(test)]
@@ -174,7 +174,7 @@ mod tests {
             .map_err(|error| format!("Error parsing protobuf: {error:?}"))
             .unwrap();
         let prost_value = prost_reflect::Value::Message(dynamic_message);
-        let vrl_value = proto_to_value(
+        let rs_value = proto_to_value(
             &prost_value,
             None,
             &Options {
@@ -183,7 +183,7 @@ mod tests {
         )
         .unwrap();
         assert_eq!(
-            vrl_value.get(&owned_value_path!("jobDescription")),
+            rs_value.get(&owned_value_path!("jobDescription")),
             Some(&Value::from("some job"))
         );
     }

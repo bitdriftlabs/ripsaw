@@ -1,0 +1,14 @@
+# result:
+#
+# error[E108]: unknown function argument keyword
+#   ┌─ :2:11
+#   │
+# 2 │ to_string(foo: "foo")
+#   │ --------- ^^^ unknown keyword
+#   │ │
+#   │ this function accepts the following keywords: "value"
+#   │
+#   = learn more about error code 108 at https://docs.bitdrift.io/product/workflows/scripting/errors#108
+#   = see language documentation at https://docs.bitdrift.io/product/workflows/scripting/language
+
+to_string(foo: "foo")

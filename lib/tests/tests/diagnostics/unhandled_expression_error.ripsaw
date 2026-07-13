@@ -1,0 +1,16 @@
+# result:
+#
+# error[E100]: unhandled error
+#   ┌─ :2:1
+#   │
+# 2 │ 1 / 0
+#   │ ^^^^^
+#   │ │
+#   │ expression can result in runtime error
+#   │ handle the error case to ensure runtime success
+#   │
+#   = see documentation about error handling at https://docs.bitdrift.io/product/workflows/scripting/errors#error-handling
+#   = learn more about error code 100 at https://docs.bitdrift.io/product/workflows/scripting/errors#100
+#   = see language documentation at https://docs.bitdrift.io/product/workflows/scripting/language
+
+1 / 0
