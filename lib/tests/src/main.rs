@@ -2,15 +2,15 @@ use chrono_tz::Tz;
 use clap::Parser;
 use glob::glob;
 
-use vrl::compiler::{CompileConfig, TimeZone, VrlRuntime};
-use vrl::test::{get_tests_from_functions, run_tests, test_dir, Test, TestConfig};
+use ripsaw::compiler::{CompileConfig, TimeZone, VrlRuntime};
+use ripsaw::test::{get_tests_from_functions, run_tests, test_dir, Test, TestConfig};
 
 #[cfg(not(target_env = "msvc"))]
 #[global_allocator]
 static ALLOC: tikv_jemallocator::Jemalloc = tikv_jemallocator::Jemalloc;
 
 #[derive(Parser, Debug)]
-#[clap(name = "VRL Tests", about = "Vector Remap Language Tests")]
+#[clap(name = "Ripsaw Tests", about = "Ripsaw Language Tests")]
 pub struct Cmd {
     #[clap(short, long)]
     pattern: Option<String>,
@@ -82,7 +82,7 @@ fn main() {
     run_tests(
         tests,
         &cfg,
-        &vrl::stdlib::all(),
+        &ripsaw::stdlib::all(),
         || (CompileConfig::default(), ()),
         |_| {},
     );
@@ -99,7 +99,7 @@ fn get_tests(cmd: &Cmd) -> Vec<Test> {
             let path = entry.ok()?;
             Some(Test::from_path(&path))
         })
-        .chain(get_tests_from_functions(vrl::stdlib::all()))
+        .chain(get_tests_from_functions(ripsaw::stdlib::all()))
         .filter(|test| should_run(&format!("{}/{}", test.category, test.name), &cmd.pattern))
         .collect::<Vec<_>>()
 }

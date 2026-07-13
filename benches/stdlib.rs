@@ -4,8 +4,8 @@ use regex::Regex;
 
 use std::env;
 use std::path::PathBuf;
-use vrl::compiler::prelude::*;
-use vrl::{bench_function, btreemap, func_args, value};
+use ripsaw::compiler::prelude::*;
+use ripsaw::{bench_function, btreemap, func_args, value};
 
 use crate::value::Value;
 

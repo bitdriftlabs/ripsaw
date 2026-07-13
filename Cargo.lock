@@ -1913,6 +1913,118 @@ dependencies = [
 ]
 
 [[package]]
+name = "ripsaw"
+version = "1.0.0"
+dependencies = [
+ "ansi_term",
+ "anyhow",
+ "arbitrary",
+ "base16",
+ "base62",
+ "base64-simd",
+ "bytes",
+ "cfg-if",
+ "charset",
+ "chrono",
+ "chrono-tz",
+ "ciborium",
+ "cidr",
+ "clap",
+ "codespan-reporting",
+ "community-id",
+ "convert_case",
+ "crc",
+ "criterion",
+ "csv",
+ "digest",
+ "dyn-clone",
+ "encoding_rs",
+ "exitcode",
+ "fancy-regex",
+ "hex",
+ "iana-time-zone",
+ "idna",
+ "indexmap",
+ "indoc",
+ "influxdb-line-protocol",
+ "itertools 0.14.0",
+ "lalrpop",
+ "lalrpop-util",
+ "lz4_flex",
+ "md-5",
+ "mlua",
+ "nom 8.0.0",
+ "nom-language",
+ "ordered-float",
+ "parse-size",
+ "paste",
+ "peeking_take_while",
+ "percent-encoding",
+ "pest",
+ "pest_derive",
+ "prettydiff",
+ "prettytable-rs",
+ "proptest",
+ "proptest-derive",
+ "prost",
+ "prost-reflect",
+ "psl",
+ "psl-types",
+ "publicsuffix",
+ "quickcheck",
+ "quoted_printable",
+ "rand 0.8.5",
+ "regex",
+ "relative-path",
+ "roxmltree",
+ "rust_decimal",
+ "rustyline",
+ "serde",
+ "serde_json",
+ "serde_yaml",
+ "serde_yaml_ng",
+ "simdutf8",
+ "snafu 0.8.9",
+ "snap",
+ "strum",
+ "strum_macros",
+ "syslog_loose",
+ "termcolor",
+ "thiserror 2.0.18",
+ "tracing",
+ "tracing-test",
+ "ua-parser",
+ "unicode-segmentation",
+ "url",
+ "utf8-width",
+ "uuid",
+ "webbrowser",
+ "woothee",
+ "xxhash-rust",
+ "zstd",
+]
+
+[[package]]
+name = "ripsaw-cli"
+version = "1.0.0"
+dependencies = [
+ "clap",
+ "ripsaw",
+]
+
+[[package]]
+name = "ripsaw-tests"
+version = "1.0.0"
+dependencies = [
+ "chrono-tz",
+ "clap",
+ "glob",
+ "ripsaw",
+ "tikv-jemallocator",
+ "tracing-subscriber",
+]
+
+[[package]]
 name = "roxmltree"
 version = "0.21.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2615,126 +2727,6 @@ name = "version_check"
 version = "0.9.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0b928f33d975fc6ad9f86c8f283853ad26bdd5b10b7f1542aa2fa15e2289105a"
-
-[[package]]
-name = "vrl"
-version = "0.31.0"
-dependencies = [
- "ansi_term",
- "anyhow",
- "arbitrary",
- "base16",
- "base62",
- "base64-simd",
- "bytes",
- "cfg-if",
- "charset",
- "chrono",
- "chrono-tz",
- "ciborium",
- "cidr",
- "clap",
- "codespan-reporting",
- "community-id",
- "convert_case",
- "crc",
- "criterion",
- "csv",
- "digest",
- "dyn-clone",
- "encoding_rs",
- "exitcode",
- "fancy-regex",
- "hex",
- "iana-time-zone",
- "idna",
- "indexmap",
- "indoc",
- "influxdb-line-protocol",
- "itertools 0.14.0",
- "lalrpop",
- "lalrpop-util",
- "lz4_flex",
- "md-5",
- "mlua",
- "nom 8.0.0",
- "nom-language",
- "ordered-float",
- "parse-size",
- "paste",
- "peeking_take_while",
- "percent-encoding",
- "pest",
- "pest_derive",
- "prettydiff",
- "prettytable-rs",
- "proptest",
- "proptest-derive",
- "prost",
- "prost-reflect",
- "psl",
- "psl-types",
- "publicsuffix",
- "quickcheck",
- "quoted_printable",
- "rand 0.8.5",
- "regex",
- "relative-path",
- "roxmltree",
- "rust_decimal",
- "rustyline",
- "serde",
- "serde_json",
- "serde_yaml",
- "serde_yaml_ng",
- "simdutf8",
- "snafu 0.8.9",
- "snap",
- "strum",
- "strum_macros",
- "syslog_loose",
- "termcolor",
- "thiserror 2.0.18",
- "tracing",
- "tracing-test",
- "ua-parser",
- "unicode-segmentation",
- "url",
- "utf8-width",
- "uuid",
- "webbrowser",
- "woothee",
- "xxhash-rust",
- "zstd",
-]
-
-[[package]]
-name = "vrl-cli"
-version = "0.1.0"
-dependencies = [
- "clap",
- "vrl",
-]
-
-[[package]]
-name = "vrl-docs"
-version = "0.1.0"
-dependencies = [
- "clap",
- "vrl",
-]
-
-[[package]]
-name = "vrl-tests"
-version = "0.1.0"
-dependencies = [
- "chrono-tz",
- "clap",
- "glob",
- "tikv-jemallocator",
- "tracing-subscriber",
- "vrl",
-]
 
 [[package]]
 name = "vsimd"

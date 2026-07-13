@@ -3,13 +3,13 @@ extern crate afl;
 
 use std::collections::BTreeMap;
 
-use vrl::compiler::state::RuntimeState;
-use vrl::compiler::{CompileConfig, TargetValue};
-use vrl::prelude::state::ExternalEnv;
-use vrl::prelude::*;
-use vrl::value;
-use vrl::value::Kind;
-use vrl::value::Secrets;
+use ripsaw::compiler::state::RuntimeState;
+use ripsaw::compiler::{CompileConfig, TargetValue};
+use ripsaw::prelude::state::ExternalEnv;
+use ripsaw::prelude::*;
+use ripsaw::value;
+use ripsaw::value::Kind;
+use ripsaw::value::Secrets;
 
 fn main() {
     fuzz!(|data: &[u8]| {
@@ -28,12 +28,12 @@ fn main() {
 }
 
 fn fuzz(src: &str) {
-    let fns = vrl::stdlib::all();
+    let fns = ripsaw::stdlib::all();
     let external = ExternalEnv::new_with_kind(Kind::any_object(), Kind::any_object());
 
     let config = CompileConfig::default();
 
-    if let Ok(result) = vrl::compiler::compile_with_external(src, &fns, &external, config) {
+    if let Ok(result) = ripsaw::compiler::compile_with_external(src, &fns, &external, config) {
         let mut target = TargetValue {
             value: value!({}),
             metadata: Value::Object(BTreeMap::new()),

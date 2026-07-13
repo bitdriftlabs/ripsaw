@@ -3,19 +3,19 @@ use std::process::{Command, Stdio};
 
 const BANNER_MARKER: &str = "VECTOR    REMAP    LANGUAGE";
 
-fn run_vrl_repl(input: Option<&str>, args: &[&str]) -> String {
-    let mut child = Command::new(env!("CARGO_BIN_EXE_vrl"))
+fn run_ripsaw_repl(input: Option<&str>, args: &[&str]) -> String {
+    let mut child = Command::new(env!("CARGO_BIN_EXE_ripsaw"))
         .args(args)
         .stdin(Stdio::piped())
         .stdout(Stdio::piped())
         .stderr(Stdio::piped())
         .spawn()
-        .expect("failed to spawn vrl process");
+        .expect("failed to spawn ripsaw process");
 
     let mut stdin = child
         .stdin
         .take()
-        .expect("failed to take stdin for child vrl cli");
+        .expect("failed to take stdin for child ripsaw cli");
 
     if let Some(input) = input {
         stdin
@@ -35,13 +35,13 @@ fn run_vrl_repl(input: Option<&str>, args: &[&str]) -> String {
 #[test]
 // abs is just a random stdlib function
 fn test_abs_works() {
-    let stdout = run_vrl_repl(Some("abs(-1)"), &["-q"]);
+    let stdout = run_ripsaw_repl(Some("abs(-1)"), &["-q"]);
     assert_eq!(stdout, "1\n\n");
 }
 
 #[test]
 fn without_quiet_flag_prints_banner() {
-    let stdout = run_vrl_repl(None, &[]);
+    let stdout = run_ripsaw_repl(None, &[]);
     assert!(
         stdout.contains(BANNER_MARKER),
         "Expected banner to be printed without --quiet flag.\nStdout was:\n{stdout}"
@@ -50,7 +50,7 @@ fn without_quiet_flag_prints_banner() {
 
 #[test]
 fn with_quiet_long_flag_suppresses_banner() {
-    let stdout = run_vrl_repl(None, &["--quiet"]);
+    let stdout = run_ripsaw_repl(None, &["--quiet"]);
     assert!(
         !stdout.contains(BANNER_MARKER),
         "Expected banner to be suppressed with --quiet flag.\nStdout was:\n{stdout}"
@@ -59,7 +59,7 @@ fn with_quiet_long_flag_suppresses_banner() {
 
 #[test]
 fn with_quiet_short_flag_suppresses_banner() {
-    let stdout = run_vrl_repl(None, &["-q"]);
+    let stdout = run_ripsaw_repl(None, &["-q"]);
     assert!(
         !stdout.contains(BANNER_MARKER),
         "Expected banner to be suppressed with -q flag.\nStdout was:\n{stdout}"
