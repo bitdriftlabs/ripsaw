@@ -2,12 +2,12 @@ all: clippy
 
 .PHONY: clippy
 clippy:
-	cargo clippy --tests --bins --workspace
+	@cargo clippy --tests --bins --workspace -- --no-deps
 
-.PHONY:
+.PHONY: build
 build:
-	cargo build --workspace
+	@cargo build --workspace
 
-.PHONY:
+.PHONY: test
 test:
-	cargo nextest run --workspace
+	@cargo nextest run --workspace
