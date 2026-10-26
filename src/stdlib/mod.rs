@@ -70,6 +70,7 @@ cfg_if::cfg_if! {
         mod object_from_array;
         mod parse_float;
         mod parse_int;
+        mod parse_json;
         mod pop;
         mod push;
         mod remove;
@@ -195,6 +196,7 @@ cfg_if::cfg_if! {
             object_from_array::ObjectFromArray,
             parse_float::ParseFloat,
             parse_int::ParseInt,
+            parse_json::ParseJson,
             pop::Pop,
             push::Push,
             r#match::Match,
