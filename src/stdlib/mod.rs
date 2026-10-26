@@ -56,6 +56,7 @@ cfg_if::cfg_if! {
         mod is_string;
         mod is_timestamp;
         mod join;
+        mod json_utils;
         mod keys;
         mod length;
         mod map;
